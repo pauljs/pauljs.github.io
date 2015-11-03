@@ -23,3 +23,4 @@ the explanations will help translate any complexities. Happy learning!
   b. Recurrent Neural Networks Tutorial, Part 1 – Introduction to RNNs
   c. Understanding LSTM Networks
   d. University of Toronto's slides on Recurrent Neural Networks
+10. Visualizing and Understanding Recurrent Networks
