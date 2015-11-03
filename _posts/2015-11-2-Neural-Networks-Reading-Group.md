@@ -8,7 +8,7 @@ Neural Networks from my start to the present. It will be updated as new material
 the explanations will help translate any complexities. Happy learning!
 
 1. Rotation-invariant convolutional neural networks for galaxy morphology prediction
-  a. This is a great introduction into applying neural networks. This paper uses deep learning to classify galaxies 
+  1. This is a great introduction into applying neural networks. This paper uses deep learning to classify galaxies 
      from images provided by the [Galaxy Zoo project](http://www.galaxyzoo.org/). It clearly introduces deep learning 
      techniques including root-mean-square error (RMSE), feed-forward neural networks, etc. Key terminology in this 
      paper is further explained [here](), with references to locations of the terms in the paper.
@@ -20,8 +20,8 @@ the explanations will help translate any complexities. Happy learning!
 7. Convolutional Deep Belief Networks for Scalable Unsupervised Learning of Hierarchical Representations (2009)
 8. Yoshua Bengio's online book Deep Learning: Chapter 6 Feedforward Deep Networks and Chapter 9 Convolutional Networks
 9. Recursive Neural Networks
-  a. The Unreasonable Effectiveness of Recurrent Neural Networks
-  b. Recurrent Neural Networks Tutorial, Part 1 – Introduction to RNNs
-  c. Understanding LSTM Networks
-  d. University of Toronto's slides on Recurrent Neural Networks
+  1. The Unreasonable Effectiveness of Recurrent Neural Networks
+  2. Recurrent Neural Networks Tutorial, Part 1 – Introduction to RNNs
+  3. Understanding LSTM Networks
+  4. University of Toronto's slides on Recurrent Neural Networks
 10. Visualizing and Understanding Recurrent Networks
