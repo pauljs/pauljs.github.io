@@ -15,7 +15,7 @@ follow along in the post [The Power of Neural Networks and a Kickstart through K
 you are more than welcome to use any part of it.
 
 Before starting the step-by-step instructions, I want to make sure you understand what is required for installation.
-- Step 1 of this tutorial is meant for Windows machines (8/8.1/10) that will dual-boot ubuntu. Dual-booting ubuntu will require a portion of your memory (specifics in Step 1). If you are sshing into a computer running Linux
+- Step 1 of this tutorial is meant for Windows machines (8/8.1/10) that will dual-boot ubuntu. Dual-booting ubuntu will require a portion of your memory (specifics in Step 1). If you are sshing into a computer running Linux or have a Mac, or have a computer running Linux / Mac system
 then you can move to Step 2.
 - Step 4 of these instructions highly recommends enabling GPU support for Lasagne. The reason why is that using the GPU causes a near 50 fold increase in speed. This is significant
 especially when working with large neural networks and large datasets! If you are using your personal computer,
