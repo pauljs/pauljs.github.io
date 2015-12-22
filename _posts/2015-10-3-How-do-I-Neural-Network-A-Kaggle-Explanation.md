@@ -1,18 +1,15 @@
 ---
 layout: post
-title: How Do I Neural Network A Kickstart through Kaggle
+title: The Power of Neural Networks and A Kickstart through Kaggle
 ---
 
 Table of Contents:
 - [SVM vs Softmax](#svmvssoftmax)
-1. What is a neural network?
-..2. You may have heard this through interest in Machine Learning and may only have a general idea of what is.
-..3. Brief explanation
-..4. But how does one actually make a neural network? It seems very black boxy.
-Next you can update your site name, avatar and other options using the _config.yml file in the root of your repository (shown below).
-
-![_config.yml]({{ site.baseurl }}/images/config.png)
-
-The easiest way to make your first post is to edit this one. Go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now) on GitHub.
 
 <a name='svmvssoftmax'></a>
+## The Power of Neural Networks and A Kickstart through Kaggle: An Introduction
+Welcome to the first post in a series of blogs with a focus on making current research in deep learning more tangeable! In this section, we are going to use the classic machine learning introduction classification problem MNIST to show the power of neural networks. We are then going to enter a competition and produce a submission with < 1% error! For those who are unaware, MNIST stands for Mixed National Institute of Standards and Technology and is a dataset of 70,000 black and white images (28 pixels by 28 pixels) of the numbers 0 through 9. A few examples of these images can be seen below.
+
+INSERT IMAGES
+
+We are going to use neural networks to classify these images by their respective numbers. To do this, we only need to provide an image to the neural network as input, and the neural network will produce the number it represents as output. Now it is unimportant for now what is happening behind the scenes of a neural network; this will come in the following blog post. Currently we just want to see what neural networks can do, so for now you can just imagine the neural network as a function f that takes an image x and produces a number y. f(x) -> y.
