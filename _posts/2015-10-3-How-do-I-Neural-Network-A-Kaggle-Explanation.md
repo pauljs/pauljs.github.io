@@ -2,6 +2,7 @@
 layout: post
 title: How Do I Neural Network: A Kickstart through Kaggle
 ---
+
 Table of Contents:
 - [SVM vs Softmax](#svmvssoftmax)
 1. What is a neural network?
