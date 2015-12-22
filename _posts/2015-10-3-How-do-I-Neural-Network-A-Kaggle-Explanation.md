@@ -16,10 +16,11 @@ We are going to use neural networks to classify these images by their respective
 
 In order to see how well we are doing, we will enter a Kaggle competition to compete for the best accuracy with our predicted classifications. Kaggle is a website that hosts competitions on predicitive analytics in order for researchers and people to produce the best predictive models, and I will teach you how to easily create a neural network that will earn you a top 50 finish! There will be some initial set up if you want to follow along, but if you don't you will be able to read the code and interact with the neural network right here on this blog!
 
-SETUP SECTION: IF YOU DONT WANT TO FOLLOW ALONG CLICK HERE TO SKIP
-For this setup we are going to use Lasagne. There are several other neural network libraries out here such as TensorFlow (we will get to this one in the next blog post), Keras, Caffe, etc. A majority of computer scientists tend to use python when using neural networks (this will be clear in the next blog post LINK), so we will use Lasagne as a basis since it uses python. To setup lasagne, click the link to the blog post below. When you complete the installation, you will be redirected back here. If you have any trouble installing or have advice to make it more clear, feel free to reach out!
+SETUP SECTION: IF YOU DON'T WANT TO FOLLOW ALONG CLICK HERE TO SKIP
+For this setup we are going to use the python neural network library Lasagne. There are several other neural network libraries out here such as TensorFlow (we will get to this one in the next blog post), Keras, Caffe, etc. A majority of computer scientists tend to use python when using neural networks (this will be clear in the next blog post LINK), so we will use Lasagne as a basis since it uses python. To setup lasagne, click the link to the blog post below. When you complete the installation, you will be redirected back here. If you have any trouble installing or have advice to make it more clear, feel free to reach out!
 Link to blogpost on setup
 
 LASAGNE SHORT TESTS
+Now that you have successfully installed Lasagne, we are going to take a quick glimpse at the provided examples.
 
 ENTER KAGGLE
