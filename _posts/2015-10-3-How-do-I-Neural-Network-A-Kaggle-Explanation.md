@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How Do I Neural Network: A Kickstart through Kaggle
+title: How Do I Neural Network A Kickstart through Kaggle
 ---
 
 Table of Contents:
