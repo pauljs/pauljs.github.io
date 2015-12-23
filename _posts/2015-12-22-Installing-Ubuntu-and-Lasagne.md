@@ -45,7 +45,7 @@ For dual-booting Ubuntu, I followed [this Youtube video](https://www.youtube.com
 15. Click Create and then click yes to accept what will be done to the USB (any files will be deleted on the USB!), and it will start installing Ubuntu onto your USB.
 16. When the installation is finished, we will need to enter Windows BIOS (a program that helps start your computer) in order to boot from the USB drive to allow us to install Ubuntu from the USB. To enter BIOS, I followed this [tutorial](https://support.lenovo.com/us/en/documents/ht081446) and listed the steps below
 17. Press the windows key and type "pc settings," and click on the pc settings option.
-18. Click "Update and Recovery" and then click "Recovery"
+18. Click "Update and Recovery" and then click "Recovery," and then click "Restart Now" under "Advanced Startup"
 19. Click "Troubleshoot," then click "Advanced Options," then click "UEFI Firmware Settings"
 20. Click Restart to restart and start BIOS
 21. 
