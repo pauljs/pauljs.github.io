@@ -20,7 +20,7 @@ The purpose of this post is to provide a step-by-step instruction on:
 4. Optionally enable GPU processing which is highly recommended
 5. Optionally install NVIDIA's library cuDNN to speed up convolutional neural networks.
 
-This post is supposed to serve as an intermediate step in order to allow readers to follow along in the post [The Power of Neural Networks and a Kickstart through Kaggle: An Introduction](), but you are more than welcome to use any part of it.
+This post is supposed to serve as an intermediate step in order to allow readers to follow along in the post [The Power of The Power of Neural Networks and A Kickstart through Kaggle](http://pauljs.github.io/How-do-I-Neural-Network-A-Kaggle-Explanation/), but you are more than welcome to use any part of it.
 
 Before starting the step-by-step instructions, I want to make sure you understand what is required for installation.  
 - Step 1 of this tutorial is meant for Windows machines (8/8.1/10) that will dual-boot ubuntu. Dual-booting ubuntu will require a portion of your memory (specifics in Step 1). If you are sshing into a computer running Linux, or have a computer running Linux / Mac system then you can move to Step 2.
