@@ -4,13 +4,12 @@ title: Installing Ubuntu and Lasagne
 ---
 
 Table of Contents:
-- [Intro to Instaling Ubuntu and Lasagne](#intro)
+- [Intro to Installing Ubuntu and Lasagne](#intro)
 - [Dual-boot Ubuntu](#dual-boot-ubuntu)
 - [Installing Lasagne Depedencies](#dependencies)
 - [Installing Lasagne](#lasagne)
 - [Enable GPU Support](#gpu)
-- [Install NVIDIA's
-- cuDNN](#cuDNN)T
+- [Install NVIDIA's cuDNN](#cuDNN)
 
 <a name='intro'></a>
 ## Installing Ubuntu and Lasagne
@@ -29,7 +28,7 @@ Now let's start the setup!
 Requirements: Windows 8/8.1/10 and a 2 GB USB Flash Drive
 
 For dual-booting Ubuntu, I followed [this Youtube video](https://www.youtube.com/watch?v=hOz66FC0pWU). I also provided step-by-step instructions from the video below.
-1. First, you will need to partition part of your hard drive that will contain Ubuntu. Search your computer by pressing hte windows key and search for "Disk Management." On Windows 8/8.1 you will click on "" and Windows 10 you will click on "Create and format hard disk partitions."
+1. First, you will need to partition part of your hard drive that will contain Ubuntu. This is really just taking extra memory you have left and ysing it for your new operating system. Search your computer by pressing the windows key and search for "Disk Management." On Windows 8/8.1 you will click on "" and Windows 10 you will click on "Create and format hard disk partitions."
 2. We will now shrink some of the space you have for Windows in order Right click on the (C:) drive 
 ### Step 2: Installing Lasagne Depedencies
 ### Step 3: Installing Lasagne
