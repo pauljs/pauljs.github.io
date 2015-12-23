@@ -3,16 +3,6 @@ layout: post
 title: Installing Ubuntu and Lasagne
 ---
 
-TEST
-
-There are a few things to note:
-
-- First, note that the single matrix multiplication \\(W x\_i\\) is effectively evaluating 10 separate classifiers in parallel (one for each class), where each classifier is a row of **W**.
-- Notice also that we think of the input data \\( (x\_i, y\_i) \\) as given and fixed, but we have control over the setting of the parameters **W,b**. Our goal will be to set these in such way that the computed scores match the ground truth labels across the whole training set. We will go into much more detail about how this is done, but intuitively we wish that the correct class has a score that is higher than the scores of incorrect classes.
-- An advantage of this approach is that the training data is used to learn the parameters **W,b**, but once the learning is complete we can discard the entire training set and only keep the learned parameters. That is because a new test image can be simply forwarded through the function and classified based on the computed scores.
-- Lastly, note that to classifying the test image involves a single matrix multiplication and addition, which is significantly faster than comparing a test image to all training images.
-
-
 Table of Contents:
 
 - [Intro to Installing Ubuntu and Lasagne](#intro)
@@ -34,7 +24,8 @@ The purpose of this post is to provide a step-by-step instruction on:
 
 This post is supposed to serve as an intermediate step in order to allow readers to follow along in the post [The Power of The Power of Neural Networks and A Kickstart through Kaggle](http://pauljs.github.io/How-do-I-Neural-Network-A-Kaggle-Explanation/), but you are more than welcome to use any part of it.
 
-Before starting the step-by-step instructions, I want to make sure you understand what is required for installation.  
+Before starting the step-by-step instructions, I want to make sure you understand what is required for installation.
+
 - Step 1 of this tutorial is meant for Windows machines (8/8.1/10) that will dual-boot ubuntu. Dual-booting ubuntu will require a portion of your memory (specifics in Step 1). If you are sshing into a computer running Linux, or have a computer running Linux / Mac system then you can move to Step 2.
 - Step 4 of these instructions highly recommends enabling GPU support for Lasagne. The reason why is that using the GPU causes a near 50 fold increase in speed. This is significant especially when working with large neural networks and large datasets! If you are using your personal computer, check to see if your computer has a GPU. My computer has a GEFORCE GTX 660M with 2GB and has a compute capability of 3.0. To check your compute capability, you can go to NVIDIA's website here. Compute capabilities are just relative, so don't worry what they actually mean. Just because your computer does not have a GPU does not mean you can't use just, your CPU (this is the default when you intall Lasagne without Step 4). Just note that running neural networks and obtaining results will take a bit longer!
 - Step 5 is an additional speed up when using convolutional neural networks. When I initially installed Lasagne I did not use this and the 50x speed up from Step 4 was great by itself! This step requires that you have a GPU with compute capability of at least 3.0.
