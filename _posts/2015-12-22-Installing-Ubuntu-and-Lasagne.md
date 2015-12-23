@@ -43,12 +43,11 @@ For dual-booting Ubuntu, I followed [this Youtube video](https://www.youtube.com
 13. Browse to find the Ubuntu iso you downloaded and select it for Step 2.
 14. Connect your USB to your computer and select your USB in Step 3. Do not remove the USB until told to do so!
 15. Click Create and then click yes to accept what will be done to the USB (any files will be deleted on the USB!), and it will start installing Ubuntu onto your USB.
-16. When the installation is finished, we will need to enter Windows BIOS (a program that helps start your computer) in order to boot from the USB drive to allow us to install Ubuntu from the USB. To enter BIOS, I followed this [tutorial](https://support.lenovo.com/us/en/documents/ht081446) and listed the steps below
-17. Press the windows key and type "pc settings," and click on the pc settings option.
-18. Click "Update and Recovery" and then click "Recovery," and then click "Restart Now" under "Advanced Startup"
-19. Click "Troubleshoot," then click "Advanced Options," then click "UEFI Firmware Settings"
-20. Click Restart to restart and start BIOS
-21. 
+16. When the installation is finished, we will need to enter Windows BIOS (a program that helps start your computer) in order to boot from the USB drive to allow us to install Ubuntu from the USB. To enter BIOS, you need to restart your computer and when restarting press and hold the F2 key for a majority of laptops. (For some laptops you may need to press the F12 key and hold instead). Keep in mind that you should have this tutorial open on a different device in order to see next steps.
+17. Now that you are in BIOS, move over to the Boot menu by pressing the right key twice. Under "Boot Option Priorities" you should see a few Boot Options including your USB Flash Drive. If it is not in Boot Option #1, we will need to switch it to that position. To do so, press the down key until you are highlighting the "Boot Option #1" row, and press the enter key. Move down until you highlight your USB and then press the enter key. Your USB should now be selected for Boot Option #1. If you need to exit a Boot Option menu press the escape key.
+18. With your USB as the Boot Option #1, move to the Save & Exit menu by pressing the right key twice.
+19. Press enter on the "Save Changes and Exit" and press enter on the highlighted yes to exit the BIOS.
+20. 
 ### Step 2: Installing Lasagne Depedencies
 ### Step 3: Installing Lasagne
 ### Step 4: Optionally Enable GPU support (Highly Recommended!)
