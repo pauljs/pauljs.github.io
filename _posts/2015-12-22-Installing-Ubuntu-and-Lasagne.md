@@ -3,6 +3,16 @@ layout: post
 title: Installing Ubuntu and Lasagne
 ---
 
+TEST
+
+There are a few things to note:
+
+- First, note that the single matrix multiplication \\(W x\_i\\) is effectively evaluating 10 separate classifiers in parallel (one for each class), where each classifier is a row of **W**.
+- Notice also that we think of the input data \\( (x\_i, y\_i) \\) as given and fixed, but we have control over the setting of the parameters **W,b**. Our goal will be to set these in such way that the computed scores match the ground truth labels across the whole training set. We will go into much more detail about how this is done, but intuitively we wish that the correct class has a score that is higher than the scores of incorrect classes.
+- An advantage of this approach is that the training data is used to learn the parameters **W,b**, but once the learning is complete we can discard the entire training set and only keep the learned parameters. That is because a new test image can be simply forwarded through the function and classified based on the computed scores.
+- Lastly, note that to classifying the test image involves a single matrix multiplication and addition, which is significantly faster than comparing a test image to all training images.
+
+
 Table of Contents:
 
 - [Intro to Installing Ubuntu and Lasagne](#intro)
