@@ -103,6 +103,7 @@ You installed all of the dependencies!
 - To install the bleeding-edge version (I did this for version 0.2.dev1): "pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip"
 
 ### Step 4: Optionally Enable GPU support (Highly Recommended!)
+Your computer requires a GPU in order to use this option
 
 - To enable GPU support, you need NVIDIA's CUDA Toolkit. Go to its [website](https://developer.nvidia.com/cuda-downloads) and narrow down your operating system version until you get to installer type. Click which instaler type you wish to use (I used deb "(local)")
 - Once downloaded, I followed the [CUDA Quick Start Guide](http://developer.download.nvidia.com/compute/cuda/7.5/Prod/docs/sidebar/CUDA_Quick_Start_Guide.pdf) in the Debian Installer for Ubuntu section using the following commands
@@ -120,8 +121,21 @@ You installed all of the dependencies!
   - floatX=float32
   - [nvcc]
   - fastmath = True
+- Opening a new terminal and running the following command will check to see if the GPU is enabled
+  - "THEANO_FLAGS=device=gpu python -c "import theano; print theano.sandbox.cuda.device_properties(0)""
+  - If there was a problem another restart may be required
 
 ### Step 5: Optionally Install NVIDIA's library cuDNN to speed up Convolutional Neural Networks
+A GPU with compute capability of at least 3.0 is needed for this option
+
+- To install cuDNN, go to its [website](https://developer.nvidia.com/cudnn) and click the Register button. In order to download cuDNN you must register and be accepted into NVIDIA's Accelerated Computing Developer Program. This is fairly simple to get into you just have to mention why you wish to use the NVIDIA library in the short application. You should receive notification of your acceptance within a day (it took 1 day for me).
+- Once accepted you can go ahead and click the Download button.
+- To install cuDNN. unzip the downloaded file and copy the *.h files to "usr/local/cuda/include"
+- Copy the lib* files to "/usr/local/cuda/lib65"
+- You can check to see if the files were found by Theano by running the command
+  - "python -c "import theano; print theano.sandbox.cuda.dnn.dnn_available() or theano.sandbox.cuda.dnn.dnn_available.msg"
+"
+  - True should be printed
 
 ## Start Following the First Post!
 LINK TO FIRST POST Section
