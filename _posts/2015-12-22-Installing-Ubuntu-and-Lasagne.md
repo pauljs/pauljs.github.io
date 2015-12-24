@@ -92,7 +92,8 @@ For installing Lasagne dependencies I followed the [Lasagne installation guide](
 - If you were following along the dual-boot Ubuntu, the current Ubuntu may not have BLAS library and Fortran compiler requried to install numpy and scipy. To obtain these use the following command in the terminal
 ```python
 sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
-#I had errors when initially trying to install numpy and scipy without these, and it is not mentioned in the Lasagne installation page
+# I had errors when initially trying to install numpy and scipy without these,
+and it is not mentioned in the Lasagne installation page
 ```
 - now use pip in the terminal to install numpy and scipy
 ```python
