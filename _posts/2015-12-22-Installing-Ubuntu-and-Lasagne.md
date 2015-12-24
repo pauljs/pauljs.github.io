@@ -6,7 +6,7 @@ title: Installing Ubuntu and Lasagne
 Table of Contents:
 
 - [Intro to Installing Ubuntu and Lasagne](#intro)
-- [Dual-boot Ubuntu](#dual-boot-ubuntu)
+- [Dual-boot Ubuntu](#ubuntu)
 - [Installing Lasagne Depedencies](#dependencies)
 - [Installing Lasagne](#lasagne)
 - [Enable GPU Support](#gpu)
@@ -22,7 +22,7 @@ The purpose of this post is to provide a step-by-step instruction on:
 4. Optionally enable GPU processing which is highly recommended  
 5. Optionally install NVIDIA's library cuDNN to speed up convolutional neural networks.  
 
-This post is supposed to serve as an intermediate step in order to allow readers to follow along in the post [The Power of The Power of Neural Networks and A Kickstart through Kaggle](http://pauljs.github.io/How-do-I-Neural-Network-A-Kaggle-Explanation/), but you are more than welcome to use any part of it.
+This post is supposed to serve as an intermediate step in order to allow readers to follow along in the post [The Power of Neural Networks and A Kickstart through Kaggle](http://pauljs.github.io/How-do-I-Neural-Network-A-Kaggle-Explanation/), but you are more than welcome to use any part of it.
 
 Before starting the step-by-step instructions, I want to make sure you understand what is required for installation.
 
@@ -31,6 +31,7 @@ Before starting the step-by-step instructions, I want to make sure you understan
 - Step 5 is an additional speed up when using convolutional neural networks. When I initially installed Lasagne I did not use this and the 50x speed up from Step 4 was great by itself! This step requires that you have a GPU with compute capability of at least 3.0.
 
 Now let's start the setup!
+<a name='ubuntu'></a>
 ### Step 1: Dual-boot Ubuntu
 Requirements: Windows 8 / 8.1 / 10 and at least 2 GB USB Flash Drive (the USB will have to be reformatted to contain the Ubuntu download so if you have anything important on your USB be sure to copy it somewhere safe for it will be removed when installing Ubuntu on it)
 
@@ -69,6 +70,7 @@ For dual-booting Ubuntu, I followed [this Youtube video](https://www.youtube.com
 **31.** You will then be asked to restart your computer. Before you restart you need to remove your USB Flash Drive now! If you don't then you will then boot from your USB and will start you back at the Welcome screen for installing Ubuntu (it shouldn't delete your newly installed Ubuntu; you will just have to restart again and remove the USB). Go ahead and restart your computer. Upon restart you will see a screen titled "GNU GRUB" where GRUB stands for GRand Unified Bootloader. This bootloader is synonymous to the BIOS we visited for Windows, but just think of it as Ubuntu's version. You will want to press enter on the highlighted Ubuntu. You may wonder why there is no option to select your "Windows (loader)" in order to start Windows. The reason why is because we need to let GRUB know that it is available (this is NOT mentioned in the Youtube link!). Press enter on Ubuntu if you have not done so and we will do this now to complete the installation!  
 **32.** Log into your account and open up a terminal (CTRL + ALT + T). Type "sudo update-grub" then press enter. You may have to enter your password when prompted. This will let GRUB recognize your Windows (loader). Now when you restart your computer you will have the option to select Windows (loader). You can move down to this and press enter to start Windows, or press enter on Ubuntu to start Ubuntu. Also keep in mind GNU GRUB has a timer. If you move or select anything in the time limit it will just default to the first option. Congratulations on dual-booting Ubuntu!  
 
+<a name='dependencies'></a>
 ### Step 2: Installing Lasagne Depedencies on Ubuntu
 For installing Lasagne Dependencies I followed the [Lasagne installation guide](http://lasagne.readthedocs.org/en/latest/user/installation.html) though specifics into how to install the dependencies were left out and can be seen below. Before starting search your computer for "Software Updater" and install any updates it finds. Without this you may not have some dependecies available for you to install (this happened to me when trying to install pip)
 
@@ -107,6 +109,7 @@ pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/v0.1/requiremen
 
 You installed all of the dependencies!
 
+<a name='lasagne'></a>
 ### Step 3: Installing Lasagne
 
 - To install the bleeding-edge version (I did this for version 0.2.dev1): 
@@ -114,6 +117,7 @@ You installed all of the dependencies!
 pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
 ```
 
+<a name='gpu'></a>
 ### Step 4: Optionally Enable GPU support (Highly Recommended!)
 Your computer requires a GPU in order to use this option
 
@@ -145,18 +149,20 @@ THEANO_FLAGS=device=gpu python -c "import theano; print theano.sandbox.cuda.devi
 ```
   - If there was a problem another restart may be required
 
+<a name='cuDNN'></a>
 ### Step 5: Optionally Install NVIDIA's library cuDNN to speed up Convolutional Neural Networks
 A GPU with compute capability of at least 3.0 is needed for this option
 
 - To install cuDNN, go to its [website](https://developer.nvidia.com/cudnn) and click the Register button. In order to download cuDNN you must register and be accepted into NVIDIA's Accelerated Computing Developer Program. This is fairly simple to get into you just have to mention why you wish to use the NVIDIA library in the short application. You should receive notification of your acceptance within a day (it took 1 day for me).
 - Once accepted you can go ahead and click the Download button.
-- To install cuDNN. unzip the downloaded file and copy the *.h files to "usr/local/cuda/include"
-- Copy the lib* files to "/usr/local/cuda/lib65"
-- You can check to see if the files were found by Theano by running the command
+- To install cuDNN, unzip the downloaded file and copy the *.h files to "/usr/local/cuda/include"
+- Copy the lib* files to "/usr/local/cuda/lib64"
+- You can check to see if the files were found by Theano by running the command:
 ```
 # This should print True if everything worked
 python -c "import theano; print theano.sandbox.cuda.dnn.dnn_available() or theano.sandbox.cuda.dnn.dnn_available.msg"
 ```
 
+<a name='first-post'></a>
 ## Start Following the First Post!
-LINK TO FIRST POST Section
+Start following along with [The Power of Neural Networks and A Kickstart through Kaggle](http://pauljs.github.io/How-do-I-Neural-Network-A-Kaggle-Explanation/#kaggle)
