@@ -22,9 +22,11 @@ In order to see how well we are doing, we will enter a Kaggle competition to com
 <a name='setup'></a>
 ##Optionally Setup Lasagne
 For this setup we are going to use the python neural network library Lasagne. There are several other neural network libraries out here such as TensorFlow (we will get to this one in the next blog post), Keras, Caffe, etc. A majority of computer scientists tend to use python when using neural networks (this will be clear in the next blog post LINK), so we will use Lasagne as a basis since it uses python. To setup Lasagne, click the link to the blog post below. When you complete the installation, you will be redirected back here. If you have any trouble installing or have advice to make it more clear, feel free to reach out!
+
 [Setup Lasagne](http://pauljs.github.io/Installing-Ubuntu-and-Lasagne/)
 
 <a name='examples'></a>
+##Lasagne Examples
 Now that you have successfully installed Lasagne, we are going to take a quick glimpse at the provided examples. To view the examples we need to download them by cloning the Lasagne github repository by using the command:
 ```
 git clone https://github.com/Lasagne/Lasagne.git
@@ -48,7 +50,10 @@ python mnist.py
     - Training loss: The error when using only the images used for training.
     - Validation loss: The error when providing the neural network with the 10,000 validation images. Validation images are separate from the training images because we want to get a glimpse of how well our neural network would do given new images.
   - Validation accuracy: This gives the percent the neural network predicts correctly out of the given 10,000 validation images.
-- Once the 500 epochs are run through, you will see a final message stating the results with the test data. The test data contains 10,000 test images, similar to the validation data, but the neural network does not use the test data to learn from.
+- Once the 500 epochs are run through, you will see a final message stating the results with the test data. The test data contains 10,000 test images, similar to the validation data, but the neural network does not use the test data to learn from. You should get a final test result around 98% (I got 98.72%).
+
+Now you may be thinking, "you said < 1%? I should be getting at least 99%". To get < 1%, we are going to edit the example given to us slightly in order to not only give a better accuracy, but to also allow easy input from our Kaggle competition.
 
 <a name='kaggle'></a>
-ENTER KAGGLE
+##Kaggle Competition
+
