@@ -84,7 +84,7 @@ For installing Lasagne Dependencies I followed the [Lasagne installation guide](
 **numpy/scipy + BLAS**
 
 - If you were following along the dual-boot Ubuntu, the current Ubuntu may not have BLAS library and Fortran compiler requried to install numpy and scipy. To obtain these use the following command in the terminal
-- "sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran". (I had errors when initially trying to install numpy and scipy without these and is not mentioned in the Lasagne installation page).
+- "sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran". (I had errors when initially trying to install numpy and scipy without these, and it is not mentioned in the Lasagne installation page).
 - now use pip to install numpy and scipy
 - "pip install numpy"
 - "pip install scipy"
@@ -92,15 +92,35 @@ For installing Lasagne Dependencies I followed the [Lasagne installation guide](
 **Theano**
 Theano is a library for transferring python code to more efficient code for faster copmutation. This will be explained in the next blog post (LINK)
 
-CHECK FOR THEANO 0.8 or 0.7!
-
 - To install a version of Theano that is confirmed compatible with Lasagne, use the following command
 - "pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/v0.1/requirements.txt"
+  - This may pop up with an warning for Theano 0.8 not being available and will instal Theano 0.7 instead. That is ok because that is what occurred with mine.
+
+You installed all of the dependencies!
 
 ### Step 3: Installing Lasagne
 
-- To install 
+- To install the bleeding-edge version (I did this for version 0.2.dev1): "pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip"
+
 ### Step 4: Optionally Enable GPU support (Highly Recommended!)
+
+- To enable GPU support, you need NVIDIA's CUDA Toolkit. Go to its [website](https://developer.nvidia.com/cuda-downloads) and narrow down your operating system version until you get to installer type. Click which instaler type you wish to use (I used deb "(local)")
+- Once downloaded, I followed the [CUDA Quick Start Guide](http://developer.download.nvidia.com/compute/cuda/7.5/Prod/docs/sidebar/CUDA_Quick_Start_Guide.pdf) in the Debian Installer for Ubuntu section using the following commands
+  - Install the repository meta-data, update the apt-ge cache, and install CUDA with the following commands:
+    - sudo dpkg --install cuda-repo-<distro>-<version>.<architecture>.deb
+    - sudo apt-get update
+    - sudo apt-get install cuda
+  - Restart your computer to load the NVIDIA drivers
+  - Add these to the end of your .bashrc which should be located in your home directory ("cd ~ & ls -A" to see your hidden .bashrc)
+    - export PATH=/usr/local/cuda-7.5/bin:$PATH
+    - export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib64:$LD_LIBRARY_PATH
+- Now that CUDA is installed, you must create a ".theanorc" file to tell Theano to default to using the GPU. Create and open the ".theanorc" file in your home directory ("cd ~") and add the following to it:
+  - [global]
+  - device=gpu
+  - floatX=float32
+  - [nvcc]
+  - fastmath = True
+
 ### Step 5: Optionally Install NVIDIA's library cuDNN to speed up Convolutional Neural Networks
 
 ## Start Following the First Post!
