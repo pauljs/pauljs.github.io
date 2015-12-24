@@ -22,7 +22,7 @@ The purpose of this post is to provide a step-by-step instruction on:
 4. Optionally enable GPU processing which is highly recommended  
 5. Optionally install NVIDIA's library cuDNN to speed up convolutional neural networks.  
 
-This post is supposed to serve as an intermediate step in order to allow readers to follow along in the post [The Power of Neural Networks and A Kickstart through Kaggle](http://pauljs.github.io/How-do-I-Neural-Network-A-Kaggle-Explanation/), but you are more than welcome to use any part of it.
+This post is supposed to serve as an intermediate step in order to allow readers to follow along in the post [The Power of Neural Networks and A Kickstart through Kaggle](http://pauljs.github.io/How-do-I-Neural-Network-A-Kaggle-Explanation/), but you are more than welcome to use any part of it. If you have any trouble installing or have advice to make it more clear, feel free to reach out!
 
 Before starting the step-by-step instructions, I want to make sure you understand what is required for installation.
 
