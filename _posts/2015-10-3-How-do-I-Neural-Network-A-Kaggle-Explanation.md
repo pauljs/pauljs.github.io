@@ -8,10 +8,16 @@ Table of Contents:
 - [Setup Ubuntu and Lasagne](#setup)
 - [Lasagne Examples](#examples)
 - [Kaggle Competition](#kaggle)
+  - [Load Dataset](#load-dataset)
+  - [Get Predictions](#get-predictions)
+  - [Save Predictions](#save-predictions)
+  - [Save Neural Network](#save-nn)
+  - [Load Neural Network](#load-nn)
+
 
 <a name='intro'></a>
 ## The Power of Neural Networks and A Kickstart through Kaggle: An Introduction
-Welcome to the first post in a series of blogs with a focus on making current research in deep learning more tangeable! In this section, we are going to use the classic machine learning introduction classification problem MNIST to show the power of neural networks. We are then going to enter a competition and produce a submission with < 1% error! For those who are unaware, MNIST stands for Mixed National Institute of Standards and Technology and is a dataset of 70,000 black and white images (28 pixels by 28 pixels) of the numbers 0 through 9. A few examples of these images can be seen below. MNIST was created from two separate datasets whose purpose was to create a standard for how numbers were written. Half of the dataset is from American high school students' written digits and the other half is from American Census Bureau employees' written digits.
+Welcome to the first post in a series of blogs with a focus on making current research in deep learning more tangeable! In this section, we are going to use the classic machine learning introduction classification problem MNIST to show the power of neural networks. We are then going to enter a competition and produce a submission with < 1% error! For those who are unaware, MNIST stands for Modified (or Mixed) National Institute of Standards and Technology and is a dataset of 70,000 black and white images (28 pixels by 28 pixels) of the numbers 0 through 9. A few examples of these images can be seen below. MNIST was created from two separate datasets whose purpose was to create a standard for how numbers were written. Half of the dataset is from American high school students' written digits and the other half is from American Census Bureau employees' written digits.
 
 INSERT IMAGES
 
@@ -31,7 +37,7 @@ Now that you have successfully installed Lasagne, we are going to take a quick g
 ```
 git clone https://github.com/Lasagne/Lasagne.git
 ```
-  - This may require you to install git. Look [here](http://git-scm.com/documentation) if you don't know what git is and [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) if you need help installing. As long as git is installed you don't need to know how to use git for this tutorial. Once you have git installed use the above command to get the Lasagne examples
+  - This may require you to install git. Look [here](http://git-scm.com/documentation) if you don't know what git is and [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) if you need help installing. As long as git is installed, you don't need to know how to use git for this tutorial. Once you have git installed use the above command to get the Lasagne examples
 
 Go ahead and move into the Lasagne folder by using:
 ```
@@ -52,8 +58,57 @@ python mnist.py
   - Validation accuracy: This gives the percent the neural network predicts correctly out of the given 10,000 validation images.
 - Once the 500 epochs are run through, you will see a final message stating the results with the test data. The test data contains 10,000 test images, similar to the validation data, but the neural network does not use the test data to learn from. You should get a final test result around 98% (I got 98.72%).
 
-Now you may be thinking, "you said < 1%? I should be getting at least 99%". To get < 1%, we are going to edit the example given to us slightly in order to not only give a better accuracy, but to also allow easy input from our Kaggle competition.
+Now you may be thinking, "you said < 1%? I should be getting at least 99%!" To get < 1%, we are going to edit the example given to us slightly in order to not only give a better accuracy, but to also allow easy input from our Kaggle competition.
 
 <a name='kaggle'></a>
 ##Kaggle Competition
 
+Now is a great time to start the Kaggle competition. Go ahead and go to [Kaggle's website](https://www.kaggle.com/) and make an account. Once you have, make your way to the [Digit Recognizer competition](https://www.kaggle.com/c/digit-recognizer). From this page you can see the goal is to classify the MNIST dataset. Go to the next section [Get the Data](https://www.kaggle.com/c/digit-recognizer/data) in order to download the data. From the description we can grasp these key points:
+- Images are 28 pixels by 28 pixels for a total of 784 pixels
+- Each pixel value is integer ranging in value between 0 and 255 inclusive, indicating lightness and darkness of a pixel. 0 represents white and 255 is black
+- We are given a train.csv file of 42,000 training images. There is a title row to tell what each column is, and each row represents a different image. Additionally the first column is the label column which represents what number the image represents.
+- We are given a test.csv file that is the same as the train.csv file, but without the first column (without the label column), and only 28,000 test images.
+- Images are layed out in the csv file in a row from pixel 0 to pixel 783. To put back into proper 28 x 28 form, we can just take batches of 28 pixels and stack them horizontally.
+
+Lets go ahead and download the train.csv and test.csv files and move them to the same directory as the mnist.py. Additionally, lets make a copy of mnist.py and call it "kaggle-mnist.py" so we can preserve the original.
+```
+cp mnist.py kaggle-mnist.py
+```
+Looking at kaggle-mnist.py, we see we have several functions:
+```python
+# Loads the MNIST dataset and downloads it if not in the same directory
+def load_dataset()
+# The next three functions creates neural networks of varying types
+def build_mlp()
+def build_custom_mlp()
+def build_cnn()
+# Takes a random sample of the training images and returns them
+def iterate_minibatches
+# Starts the main program
+def main
+```
+In order to make this file work with our Kaggle competition, we need to:
+
+1. Create our own load_kaggle_dataset function to load our train and test csv files
+2. Create a get_predictions function to see what our neural network predicted
+3. Create a save_predictions function to save our predicted labels in the required csv format
+4. Create a save_neural_network function to optionally save our neural network at the end of training
+5. Create a load_neural_network function to optionally load a previously saved neural network to perform testing on
+
+#1. Load Kaggle Dataset
+Looking at our main function below we can see the first function is a call to load our dataset
+```python
+def main(model='mlp', num_epochs=500):
+    # Load the dataset
+    print("Loading data...")
+    X_train, y_train, X_val, y_val, X_test, y_test = load_dataset()
+```
+We need to replace the X_train, y_train, and X_test with our own personal function load_kaggle_dataset. To do this we will load the csv files using Numpy. Numpy is one of the dependencies requried by Lasagne and is really just a package to do efficient operations on matrices. First lets define our function above the previous load_dataset function.
+```python
+def load_kaggle_dataset():
+
+```
+Now lets load our training data through a numpy function that loads data from text files.
+```python
+  training_data = np.delete(np.genfromtxt('train.csv', delimiter=","), 0, 0)
+  
