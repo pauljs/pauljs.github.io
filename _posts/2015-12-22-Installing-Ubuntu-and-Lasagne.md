@@ -68,11 +68,15 @@ For dual-booting Ubuntu, I followed [this Youtube video](https://www.youtube.com
 **29.** Next, select your Keyboard layout. (I selected "English (US)") and then click continue.  
 **30.** Type your name and the "Your computer's name" box should be auto-filled. Feel free to change your computer's name if you'd like by just stuck with the default. Then type in your username, your password, and confirm your password. Then click continue.  
 **31.** You will then be asked to restart your computer. Before you restart you need to remove your USB Flash Drive now! If you don't then you will then boot from your USB and will start you back at the Welcome screen for installing Ubuntu (it shouldn't delete your newly installed Ubuntu; you will just have to restart again and remove the USB). Go ahead and restart your computer. Upon restart you will see a screen titled "GNU GRUB" where GRUB stands for GRand Unified Bootloader. This bootloader is synonymous to the BIOS we visited for Windows, but just think of it as Ubuntu's version. You will want to press enter on the highlighted Ubuntu. You may wonder why there is no option to select your "Windows (loader)" in order to start Windows. The reason why is because we need to let GRUB know that it is available (this is NOT mentioned in the Youtube link!). Press enter on Ubuntu if you have not done so and we will do this now to complete the installation!  
-**32.** Log into your account and open up a terminal (CTRL + ALT + T). Type "sudo update-grub" then press enter. You may have to enter your password when prompted. This will let GRUB recognize your Windows (loader). Now when you restart your computer you will have the option to select Windows (loader). You can move down to this and press enter to start Windows, or press enter on Ubuntu to start Ubuntu. Also keep in mind GNU GRUB has a timer. If you move or select anything in the time limit it will just default to the first option. Congratulations on dual-booting Ubuntu!  
+**32.** Log into your account and open up a terminal (CTRL + ALT + T). Type: 
+```
+sudo update-grub
+```
+then press enter. You may have to enter your password when prompted. This will let GRUB recognize your Windows (loader). Now when you restart your computer you will have the option to select Windows (loader). You can move down to this and press enter to start Windows, or press enter on Ubuntu to start Ubuntu. Also keep in mind GNU GRUB has a timer. If you move or select anything in the time limit it will just default to the first option. Congratulations on dual-booting Ubuntu!  
 
 <a name='dependencies'></a>
 ### Step 2: Installing Lasagne Depedencies on Ubuntu
-For installing Lasagne Dependencies I followed the [Lasagne installation guide](http://lasagne.readthedocs.org/en/latest/user/installation.html) though specifics into how to install the dependencies were left out and can be seen below. Before starting search your computer for "Software Updater" and install any updates it finds. Without this you may not have some dependecies available for you to install (this happened to me when trying to install pip)
+For installing Lasagne dependencies I followed the [Lasagne installation guide](http://lasagne.readthedocs.org/en/latest/user/installation.html) though specifics into how to install the dependencies were left out and can be seen below. Before starting search your computer for "Software Updater" and install any updates it finds. Without this you may not have some dependecies available for you to install (this happened to me when trying to install pip)
 
 **Python + pip**
 
@@ -90,7 +94,7 @@ For installing Lasagne Dependencies I followed the [Lasagne installation guide](
 sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
 #I had errors when initially trying to install numpy and scipy without these, and it is not mentioned in the Lasagne installation page
 ```
-- now use pip to install numpy and scipy
+- now use pip in the terminal to install numpy and scipy
 ```python
 # Install numpy
 pip install numpy
@@ -102,10 +106,10 @@ pip install scipy
 Theano is a library for transferring python code to more efficient code for faster copmutation. This will be explained in the next blog post (LINK)
 
 - To install a version of Theano that is confirmed compatible with Lasagne, use the following command
-```pytho
+```python
 pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/v0.1/requirements.txt
 ```
-- This may pop up with an warning for Theano 0.8 not being available and will instal Theano 0.7 instead. That is ok because that is what occurred with mine.
+- This may pop up with an warning for Theano 0.8 not being available and will install Theano 0.7 instead. That is ok because that is what occurred with mine.
 
 You installed all of the dependencies!
 
@@ -131,9 +135,16 @@ sudo apt-get install cuda
 ```
 
   - Restart your computer to load the NVIDIA drivers
-  - Add these to the end of your .bashrc which should be located in your home directory ("cd ~ & ls -A" to see your hidden .bashrc)
-    - export PATH=/usr/local/cuda-7.5/bin:$PATH
-    - export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib64:$LD_LIBRARY_PATH
+  - Move to your home directory and look for your ".bashrc" file by typing:
+```
+#To see your hidden .bashrc
+cd ~ & ls -A
+```
+  - Open your .bashrc (using vim or another text editor) and add these to the end of your .bashrc which should be located in your home directory:
+```
+export PATH=/usr/local/cuda-7.5/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib64:$LD_LIBRARY_PATH
+```
 - Now that CUDA is installed, you must create a ".theanorc" file to tell Theano to default to using the GPU. Create and open the ".theanorc" file in your home directory ("cd ~") and add the following to it:
 ```
 [global]
