@@ -1,0 +1,9 @@
+/* Edited CSS from Karparthy (https://github.com/karpathy/karpathy.github.io/blob/master/css/main.css) */
+post-header { margin: 10px 0 30px; }
+
+.post-header h1 {
+  font-size: 36px;
+  letter-spacing: -1.75px;
+  line-height: 1;
+  font-weight: 300;
+}
