@@ -1,6 +1,9 @@
 ---
 layout: post
+comments: true
 title: The Power of Neural Networks and A Kickstart through Kaggle
+excerpt: "Welcome to the first post in a series of blogs with a focus on making current research in deep learning more tangeable!"
+date: 2015-12-25 12:35:00
 ---
 
 Table of Contents:
