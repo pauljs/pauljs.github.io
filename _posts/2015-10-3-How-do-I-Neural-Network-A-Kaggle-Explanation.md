@@ -259,6 +259,7 @@ def save_predictions(test_predictions, X_test):
       text_file.write("%d\n" % label)
   text_file.close()
 ```
+We are going to hold off on inserting this function into our main method for now. The reason why will be explained below.
 
 <a name='save-nn'></a>
 ### 4. Save the neural network
@@ -300,8 +301,46 @@ filename = "model.npz"
 save_nn(network, filename)
 load_nn(network, filename)
 ```
+Lastly, we are now going to insert our save_predictions function after our load_nn function. The key really is to save the function after our save_nn function. The reason why is because there are sometimes memory issues with retrieving all of our test image predictions at once; we might not have enough memory to pull all 28,000 image predictions at once from Theano. We will fix this if you have this problem when running the program below.
 
 <a name='run'></a>
 ### Run your neural network!
+We are ready to run the neural network! However, before we run the program I want you to note some approximate benchmarks for how long the program will take to , depending on the type of neural network and whether you use a GPU.
+<table align="center">
+  <tr>
+    <th></th>
+    <th>CPU Time Per Epoch (sec)</th>
+    <th>GPU Time Per Epoch (sec)</th>		
+  </tr>
+  <tr>
+    <td>mlp</td>
+    <td>18</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>cnn</td>
+    <td>240</td>	
+    <td>6</td>	
+  </tr>
+</table>
+The CPU times can vary depending on your machine, but the point is that if we run the default of 500 epochs, CPU times can take hours to even days to complete depending on the size of dataset and neural network! This is why a GPU is highly recommended for creating neural networks.
+
+Now let's go ahead and run a test of our program! On the terminal run this command to start:
+```python
+# We pass the argument 'cnn' in order to run a particular type of neural network which will provide better accuracy for
+# this problem. We give another argument 1 to run only 1 epoch
+python kaggle-mnist.py 'cnn' 1
+```
+
+After the 1 epoch is run, see if you get this message:
+```
+Error allocating 2064384000 bytes of device memory (out of memory). Driver report 1774694400 bytes free and 2146762752 bytes total
+...
+```
+If you do then you ran out of memory when attempting to get our test prediction values from Theano. To fix this follow the next section. If you didn't get this error, great! You can skip the next section and move to the last section.
+
+#### Memory issues
+
+#### Submitting to Kaggle
 
 **ISSUE WITH RUNNING OUT OF MEMORY!!**
