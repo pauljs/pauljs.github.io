@@ -1,6 +1,9 @@
 ---
 layout: post
+comments: true
 title: Dual-Booting Ubuntu and Installing Lasagne
+excerpt: "The purpose of this post is to provide a step-by-step instruction on dual-booting Ubuntu and installing python library Lasagne in order to build and train neural networks."
+date: 2015-12-25 12:43:00
 ---
 
 Table of Contents:
