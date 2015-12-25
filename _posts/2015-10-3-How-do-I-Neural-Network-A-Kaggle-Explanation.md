@@ -350,8 +350,10 @@ def save_predictions(test_predictions, X_test):
   text_file = open(filename, "w")
   text_file.write("ImageId,Label\n")
   text_file.close()
+  # We split our test images into 5 sets
   splits = np.split(X_test, 5)
   i = 1
+  # For each split we get their predicted labels and append them to our save file
   for split in splits:
       output = test_output(split)
       for label in output:
@@ -363,5 +365,10 @@ def save_predictions(test_predictions, X_test):
 ```
 
 #### Submitting to Kaggle
+Now that we fixed the memory issue we can finally get our predictions! Go ahead and run the following command:
+```python
+python kagggle-mnist.py 'cnn'
+```
+When it is complete you will find the predicted_labels.csv file in your directory. Then, head on over to the [Kaggle submission page](https://www.kaggle.com/c/digit-recognizer/submissions/attach) and submit the file. When Kaggle completes the upload you should have an accuracy around 99%! (I got 99.414%).
 
-**ISSUE WITH RUNNING OUT OF MEMORY!!**
+As stated a few times in this tutorial, more specifics on how libraries like Lasagne and Theano work will be mentioned in the next blog post, but this time using Google's TensorFlow. After that we will start diving into research papers on deep learning and neural networks to understand how neural networks work and what researchers are looking into in order to improve deep learning. See you in the next post!
