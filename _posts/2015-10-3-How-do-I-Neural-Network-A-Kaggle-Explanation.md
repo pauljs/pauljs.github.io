@@ -96,7 +96,7 @@ In order to make this file work with our Kaggle competition, we need to:
 4. Create a save_neural_network function to optionally save our neural network at the end of training
 5. Create a load_neural_network function to optionally load a previously saved neural network to perform testing on
 
-#1. Load Kaggle Dataset
+### 1. Load Kaggle Dataset
 Looking at our main function below we can see the first function is a call to load our dataset
 ```python
 def main(model='mlp', num_epochs=500):
@@ -150,9 +150,39 @@ def load_kaggle_dataset():
     # training_data_Y is cast to int32 since all labels are integer and for similar reasons as previous castings
     return training_data_X, np.int32(training_data_Y), test_data
 ```
+Now that we create our new load method we need to insert it into our main method. Let's put it right below the previous load function in order to still use the validation data given to us by it, so we can see approximately how well our neural network is doing while it is training.
+```python
+def main(model='mln', num_epochs=500):
+    # Load the dataset
+    print("Loading data...")
+    X_train, y_train, X_val, y_val, X_test, y_test = load_dataset()
+    # Newly inserted load_kaggle_dataset to repalce X_train, y_train, X_test
+    X_train, y_train, X_test = load_kaggle_dataset()
+```
+Lastly, we need to comment out the code in the main method that would tell us our final test results since our we don't know the corresponding labels to our new test data.
+```python
+# After training, we compute and print the test error:
+# Comment all of the code below
+'''
+test_err = 0
+test_acc = 0
+test_batches = 0
+for batch in iterate_minibatches(X_test, y_test, 500, shuffle=False):
+    inputs, targets = batch
+    err, acc = val_fn(inputs, targets)
+    test_err += err
+    test_acc += acc
+    test_batches += 1
+
+print("Final results:")
+print("  test loss:\t\t\t{:.6f}".format(test_err / test_batches))
+print("  test accuracy:\t\t{:.2f} %".format(
+    test_acc / test_batches * 100))
+'''
+```
 
 <a name='get-predictions'></a>
-#2. Get Predictions
+### 2. Get Predictions
 Let's look at the current functions for evaluating predictions which can be found in the main function
 ```python
 def main(...):
@@ -207,7 +237,7 @@ def main(...):
 ```
 
 <a name='save-predictions'></a>
-# 3. Save predictions
+### 3. Save predictions
 Now that we have a way to get our predictions we need to create a save predictions method to save our answers to a file. We can place this function save_predictions right before our main function. It is not obvious from [Kaggle's submission page](https://www.kaggle.com/c/digit-recognizer/submissions/attach) what format the csv file should be. The csv needs to columns, one titled "ImageId" and the next titled "Label". Image ids are from 1 to 28000 and the predicted labels are already in that order.
 ```python
 # Take our new function test_predictions_fn as the first argument and X_test as the second in order to obtain the
@@ -231,7 +261,7 @@ def save_predictions(test_predictions, X_test):
 ```
 
 <a name='save-nn'></a>
-# 4. Save the neural network
+### 4. Save the neural network
 Luckily at the bottom of the kaggle-mnist.py file, we have a suggested method to save the neural network. 
 ```python
 # Optionally, you could now dump the network weights to a file like this:
@@ -255,7 +285,7 @@ save_nn(network, filename)
 ```
 
 <a name='load-nn'></a>
-# 5. Load a saved neural network
+### 5. Load a saved neural network
 We will now create a function load_nn and place right after the save_nn function
 ```python
 def load_nn(network, filename):
@@ -272,5 +302,6 @@ load_nn(network, filename)
 ```
 
 <a name='run'></a>
-## Run your neural network!
+### Run your neural network!
+
 **ISSUE WITH RUNNING OUT OF MEMORY!!**
