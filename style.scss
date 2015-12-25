@@ -57,6 +57,10 @@ h2 {
 
 h3 {
   font-size: 20px;
+  &:hover {
+  	color: black;
+  	text-decoration: underline;
+  }
 }
 
 h4 {
