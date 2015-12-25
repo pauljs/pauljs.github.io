@@ -103,12 +103,49 @@ def main(model='mlp', num_epochs=500):
     print("Loading data...")
     X_train, y_train, X_val, y_val, X_test, y_test = load_dataset()
 ```
-We need to replace the X_train, y_train, and X_test with our own personal function load_kaggle_dataset. To do this we will load the csv files using Numpy. Numpy is one of the dependencies requried by Lasagne and is really just a package to do efficient operations on matrices. First lets define our function above the previous load_dataset function.
+We need to replace the X_train, y_train, and X_test with our own personal function load_kaggle_dataset. To do this we will load the csv files using Numpy (referred to typically as "np" in python). [Numpy](http://www.numpy.org/) is one of the dependencies requried by Lasagne and is really just a package to do efficient operations on matrices. First let's define our function above the previous load_dataset function.
 ```python
 def load_kaggle_dataset():
 
 ```
-Now lets load our training data through a numpy function that loads data from text files.
+Now lets load our training data through a numpy function [genfromtxt](http://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.genfromtxt.html) that loads data from text files.
 ```python
-  training_data = np.delete(np.genfromtxt('train.csv', delimiter=","), 0, 0)
+  # loads data into at Numpy array using a comma indicate a new element. dtype represents the type the data
+  # will be loaded as. We choose float32 since the original dtype is float64, whose precision is unstable when
+  # placed on the GPU
+  training_data = np.genfromtxt('train.csv', delimiter=",", dtype="float32")
+```
+But remember that the first row in the train.csv file is only used to tell us what each column is. We can actually remove this row using Numpy's [delete](http://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.delete.html) function
+```python
+  # axis=0 means we are deleting a row (axis=0 represents rows, axis=1 represents columns, etc.)
+  # obj=0 means we are deleting the first row
+  training_data = np.delete(np.genfromtxt('train.csv', delimiter=",", dtype="float32"), obj=0, axis=0)
+```
+Next we need to separate the training data into images and their respective labels. The first column has the labels and the rest are the images.
+```python
+  # List of train images by deleting the 1st column of labels and reshaping the 784 pixels into their original 28 x 28
+  # image. Additionally, we divide all pixels by 256 in order to have the range of pixels between 0 and 1. This is
+  # done in order for neural networks to learn easier, keeping the range smaller but the proportions the same.
+  # (Actually the range [0, 255/256], for compatibility to the version provided at   
+  # http://deeplearning.net/data/mnist/mnist.pkl.gz.)
+  training_data_X = np.delete(training_data, obj=0, axis=1).reshape(-1, 1, 28, 28) / 256
   
+  # List of corresponding labels for the training image. This is just all items from the first column
+  training_data_Y = training_data[:, 0]
+```
+Lastly, we need to load the data from test.csv, which should be exactly the same as loading in the training data but
+without the label column
+```python
+  tetest_data = np.delete(np.genfromtxt('test.csv', delimiter=',', dtype="float32"), obj=0, axis=0).reshape(-1, 1, 28, 28) / 256
+
+```
+The full method is therefore:
+```python
+def load_kaggle_dataset():
+    training_data = np.delete(np.genfromtxt('train.csv', delimiter=",", dtype="float32"), obj=0, axis=0)
+    training_data_X = np.delete(training_data, obj=0, axis=1).reshape(-1, 1, 28, 28) / 256
+    training_data_Y = training_data[:, 0]
+    test_data = np.delete(np.genfromtxt('test.csv', delimiter=',', dtype="float32"), obj=0, axis=0).reshape(-1, 1, 28, 28) / 256
+    # training_data_Y is cast to int32 since all labels are integer and for similar reasons as previous castings
+    return training_data_X, np.int32(training_data_Y), test_data
+```
