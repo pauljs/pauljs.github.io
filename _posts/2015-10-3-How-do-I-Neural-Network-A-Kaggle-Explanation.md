@@ -337,9 +337,27 @@ After the 1 epoch is run, see if you get this message:
 Error allocating 2064384000 bytes of device memory (out of memory). Driver report 1774694400 bytes free and 2146762752 bytes total
 ...
 ```
-If you do then you ran out of memory when attempting to get our test prediction values from Theano. To fix this follow the next section. If you didn't get this error, great! You can skip the next section and move to the last section.
+If you do then you ran out of memory when attempting to get our test prediction values from Theano. I wanted you to see this error in case it happens in the future. To fix this follow the next section. If you didn't get this error, great! But you should still follow the next section because this error will probably happen to you if you move on to more complex neural networks.
 
 #### Memory issues
+If you look closely at your error you will see that it occurs in our save_predictions method. Specifically, it occurs at our call to the theano function test_predictions_fn. The X_test we pass to this theano function is requesting too large of a numpy array to return; it is able to calculate the answers but can't bring it back from the theano function. To fix this all we need to do is split our X_train into several parts and make a several calls to our theano function test_predictions_fn to get answers in smaller chunks.
+```python
+def save_predictions(test_predictions, X_test):
+  filename = "predicted_labels.csv"
+  text_file = open(filename, "w")
+  text_file.write("ImageId,Label\n")
+  text_file.close()
+  splits = np.split(X_test, 5)
+  i = 1
+  for split in splits:
+      output = test_output(split)
+      for label in output:
+          text_file = open(filename, "a")
+          text_file.write("%d," % i)
+          i += 1
+          text_file.write("%d\n" % label)
+          text_file.close()
+```
 
 #### Submitting to Kaggle
 
