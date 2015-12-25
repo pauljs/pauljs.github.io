@@ -13,6 +13,7 @@ Table of Contents:
   - [Save Predictions](#save-predictions)
   - [Save Neural Network](#save-nn)
   - [Load Neural Network](#load-nn)
+  - [Run Your Neural Network](#run)
 
 
 <a name='intro'></a>
@@ -149,3 +150,127 @@ def load_kaggle_dataset():
     # training_data_Y is cast to int32 since all labels are integer and for similar reasons as previous castings
     return training_data_X, np.int32(training_data_Y), test_data
 ```
+
+<a name='get-predictions'></a>
+#2. Get Predictions
+Let's look at the current functions for evaluating predictions which can be found in the main function
+```python
+def main(...):
+  ...
+  # Create a loss expression for training, i.e., a scalar objective we want
+  # to minimize (for our multi-class problem, it is the cross-entropy loss):
+  prediction = lasagne.layers.get_output(network)
+  loss = lasagne.objectives.categorical_crossentropy(prediction, target_var)
+  loss = loss.mean()
+  # We could add some weight decay as well here, see lasagne.regularization.
+
+  # Create update expressions for training, i.e., how to modify the
+  # parameters at each training step. Here, we'll use Stochastic Gradient
+  # Descent (SGD) with Nesterov momentum, but Lasagne offers plenty more.
+  params = lasagne.layers.get_all_params(network, trainable=True)
+  updates = lasagne.updates.nesterov_momentum(
+          loss, params, learning_rate=0.01, momentum=0.9)
+
+  # Create a loss expression for validation/testing. The crucial difference
+  # here is that we do a deterministic forward pass through the network,
+  # disabling dropout layers.
+  test_prediction = lasagne.layers.get_output(network, deterministic=True)
+  test_loss = lasagne.objectives.categorical_crossentropy(test_prediction,
+                                                          target_var)
+  test_loss = test_loss.mean()
+  # As a bonus, also create an expression for the classification accuracy:
+  test_acc = T.mean(T.eq(T.argmax(test_prediction, axis=1), target_var),
+                    dtype=theano.config.floatX)
+
+  # Compile a function performing a training step on a mini-batch (by giving
+  # the updates dictionary) and returning the corresponding training loss:
+  train_fn = theano.function([input_var, target_var], loss, updates=updates)
+
+  # Compile a second function computing the validation loss and accuracy:
+  val_fn = theano.function([input_var, target_var], [test_loss, test_acc])
+```
+  - From the descriptions above, we can see that "test_prediction" contains the predictions for the test images. However, we can't access these directly due to the nature of how Lasagne works. Lasagne uses Theano which ports directions on implementation to a more efficient language to do fast computations (see the following post for a more in depth description). You can think of "test_prediction" as currently being in that other language, and we need to make a Theano function in order to obtain its values. This is why we have "train_fn" and "val_fn" which gives us access to values in the other language. Thus, we just need to create a function that returns the values of test_prediction. We will place this below val_fn.
+```python
+  # Get test predictions
+  # test_prediction contains the probabilities of the image being each number for each image. In other words,
+  # test_prediction contains arrays of length 10 where each array contains 10 percentages representing the probability
+  # that an image is a prticular number. For example, [0.1, 0.2, 0.1, 0.05, 0.05, 0.025, 0.025, 0.15, 0.1, 0.1] represents
+  # the image having a 10% probability of being a number 0, 20% probability of the image being a number 1, etc.
+  # We want to take the number with the highest probability which is why we use Theano's argmax function to do so.
+  # Theano's argmax function gives us the index of the probability (which in this case is also the number with the
+  # highest probability). We take the max across a row (axis=1), which is for each array of length 10.
+  get_test_predictions = T.argmax(test_prediction, axis=1)
+  # We create our function to obtain the values of the test_predictions. The theano function takes input_var which
+  # is the variable in the function representing our images input, and use the get_test_predictions directions we
+  # created to produce the values.
+  test_predictions_fn = theano.function([input_var], get_test_predictions)
+```
+
+<a name='save-predictions'></a>
+# 3. Save predictions
+Now that we have a way to get our predictions we need to create a save predictions method to save our answers to a file. We can place this function save_predictions right before our main function. It is not obvious from [Kaggle's submission page](https://www.kaggle.com/c/digit-recognizer/submissions/attach) what format the csv file should be. The csv needs to columns, one titled "ImageId" and the next titled "Label". Image ids are from 1 to 28000 and the predicted labels are already in that order.
+```python
+# Take our new function test_predictions_fn as the first argument and X_test as the second in order to obtain the
+# predicted labels from it. We will make the saved file as "predicted_labels.csv"
+def save_predictions(test_predictions, X_test):
+  filename = "predicted_labels.csv"
+  # Call to our newly defined functions to get X_test's predicted labels
+  output = test_predictions(X_test)
+  # We open our file where each write is appended to the file ("a" stands for append)
+  text_file = open(filename, "a")
+  # Create the column titles
+  text_file.write("ImageId,Label\n")
+  # i represents the Image ids
+  i = 1
+  text_file = open(filename, "a")
+  for label in output:
+      text_file.write("%d," % i)
+      i += 1
+      text_file.write("%d\n" % label)
+  text_file.close()
+```
+
+<a name='save-nn'></a>
+# 4. Save the neural network
+Luckily at the bottom of the kaggle-mnist.py file, we have a suggested method to save the neural network. 
+```python
+# Optionally, you could now dump the network weights to a file like this:
+# np.savez('model.npz', lasagne.layers.get_all_param_values(network))
+```
+We will use this in a defined function save_nn which you can place after the main method.
+```python
+def save_nn(network, filename):
+  # Gets all of the parameters of the neural network
+  all_params = lasagne.layers.get_all_params(network)
+  # Saves the parameters to a filename(in this case it will be model.npz) with the array title 'network'
+  np.savez(filename, network=lasagne.layers.get_all_param_values(network))
+```
+Now place the newly defined method in your main method
+```python
+# Optionally, you could now dump the network weights to a file like this:
+# np.savez('model.npz', lasagne.layers.get_all_param_values(network))
+# .npz is a file format for saving numpy arrays
+filename = "model.npz"
+save_nn(network, filename)
+```
+
+<a name='load-nn'></a>
+# 5. Load a saved neural network
+We will now create a function load_nn and place right after the save_nn function
+```python
+def load_nn(network, filename):
+  all_param_values = np.load(filename)
+  lasagne.layers.set_all_param_values(network, all_param_values['network']) 
+```
+To make sure this works you can place this right after the save_nn function call in your main method
+```python
+# Optionally, you could now dump the network weights to a file like this:
+# np.savez('model.npz', lasagne.layers.get_all_param_values(network))
+filename = "model.npz"
+save_nn(network, filename)
+load_nn(network, filename)
+```
+
+<a name='run'></a>
+## Run your neural network!
+**ISSUE WITH RUNNING OUT OF MEMORY!!**
