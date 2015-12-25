@@ -26,7 +26,7 @@ This post is supposed to serve as an intermediate step in order to allow readers
 
 Before starting the step-by-step instructions, I want to make sure you understand what is required for installation.
 
-- Step 1 of this tutorial is meant for Windows machines (8/8.1/10) that will dual-boot ubuntu. Dual-booting ubuntu will require a portion of your memory (specifics in Step 1). If you are sshing into a computer running Linux, or have a computer running Linux / Mac system then you can move to Step 2.
+- Step 1 of this tutorial is meant for Windows machines (8 / 8.1 / 10) that will dual-boot ubuntu. Dual-booting ubuntu will require a portion of your memory (specifics in Step 1). If you are sshing into a computer running Linux, or have a computer running Linux / Mac system then you can move to Step 2.
 - Step 4 of these instructions highly recommends enabling GPU support for Lasagne. The reason why is that using the GPU causes a near 50 fold increase in speed. This is significant especially when working with large neural networks and large datasets! If you are using your personal computer, check to see if your computer has a GPU. My computer has a GEFORCE GTX 660M with 2GB and has a compute capability of 3.0. To check your compute capability, you can go to NVIDIA's website here. Compute capabilities are just relative, so don't worry what they actually mean. Just because your computer does not have a GPU does not mean you can't use just, your CPU (this is the default when you intall Lasagne without Step 4). Just note that running neural networks and obtaining results will take a bit longer!
 - Step 5 is an additional speed up when using convolutional neural networks. When I initially installed Lasagne I did not use this and the 50x speed up from Step 4 was great by itself! This step requires that you have a GPU with compute capability of at least 3.0.
 
@@ -35,12 +35,12 @@ Now let's start the setup!
 ### Step 1: Dual-boot Ubuntu
 Requirements: Windows 8 / 8.1 / 10 and at least 2 GB USB Flash Drive (the USB will have to be reformatted to contain the Ubuntu download so if you have anything important on your USB be sure to copy it somewhere safe for it will be removed when installing Ubuntu on it)
 
-For dual-booting Ubuntu, I followed [this Youtube video](https://www.youtube.com/watch?v=hOz66FC0pWU) though the video skips out on some steps with Windows BIOS and accessing both Ubuntu and Windows at the end. I also provided step-by-step instructions from the video below.
+For dual-booting Ubuntu, I followed [this Youtube video](https://www.youtube.com/watch?v=hOz66FC0pWU) though the video skips out on some steps with Windows BIOS and accessing both Ubuntu and Windows at the end. I placed these skipped steps in my step-by-step instructions below.
 
 **1.** First you will need to turn off fast boot for Windows. To do this, search for "control panel" by pressing the windows key and typing "control panel." Click the option for control panel. (I used this [link](http://www.eightforums.com/tutorials/6320-fast-startup-turn-off-windows-8-a.html) as a guide).  
 **2.** In the control panel, click "System and Security" and then click "Power Options."  
-**3.** In the Power Options menu, click "Choose what the power buttons do"  
-**4.** Under "Shutdown settings", uncheck "Turn on fast startup (recommended)." You can close the PC Settings menu now.  
+**3.** In the Power Options window, click "Choose what the power buttons do"  
+**4.** Under "Shutdown settings", uncheck "Turn on fast startup (recommended)." You can close the PC Settings window now.  
 **5.** We will need to mark down how much RAM you have. To do this, open a File Explorer and right click on "This PC" or "Computer" and click "Properties." You will see under System, "Installed memory (RAM): " and the amount of RAM you have. Write this down for it will be needed later.  
 **6.** Now, you will need to partition part of your hard drive that will contain Ubuntu. This is really just taking extra memory you have left and ysing it for your new operating system. Search your computer by pressing the windows key and search for "Disk Management." On Windows 8/8.1 you will click on "" and Windows 10 you will click on "Create and format hard disk partitions."  
 **7.** We will now shrink some of the space you have for Windows in order to provide space for Ubuntu. Right click on the partition marked (C:) (or the partition with the largest space) and click shrink.  
@@ -72,7 +72,7 @@ For dual-booting Ubuntu, I followed [this Youtube video](https://www.youtube.com
 ```
 sudo update-grub
 ```
-then press enter. You may have to enter your password when prompted. This will let GRUB recognize your Windows (loader). Now when you restart your computer you will have the option to select Windows (loader). You can move down to this and press enter to start Windows, or press enter on Ubuntu to start Ubuntu. Also keep in mind GNU GRUB has a timer. If you move or select anything in the time limit it will just default to the first option. Congratulations on dual-booting Ubuntu!  
+then press enter. You may have to enter your password when prompted. This will let GRUB recognize your Windows (loader). Now when you restart your computer you will have the option to select Windows (loader) in GNU GRUB. You can move down to this and press enter to start Windows, or press enter on Ubuntu to start Ubuntu. Also keep in mind GNU GRUB has a timer. If you move or select anything in the time limit it will just default to the first option. Congratulations on dual-booting Ubuntu!  
 
 <a name='dependencies'></a>
 ### Step 2: Installing Lasagne Depedencies on Ubuntu
