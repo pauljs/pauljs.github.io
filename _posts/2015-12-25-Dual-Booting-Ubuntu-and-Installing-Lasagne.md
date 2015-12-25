@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Installing Ubuntu and Lasagne
+title: Dual-Booting Ubuntu and Installing Lasagne
 ---
 
 Table of Contents:
 
-- [Intro to Installing Ubuntu and Lasagne](#intro)
+- [Intro to Dual-Booting Ubuntu and Installing Lasagne](#intro)
 - [Dual-boot Ubuntu](#ubuntu)
 - [Installing Lasagne Depedencies](#dependencies)
 - [Installing Lasagne](#lasagne)
