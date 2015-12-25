@@ -246,12 +246,15 @@ def save_predictions(test_predictions, X_test):
   filename = "predicted_labels.csv"
   # Call to our newly defined functions to get X_test's predicted labels
   output = test_predictions(X_test)
-  # We open our file where each write is appended to the file ("a" stands for append)
-  text_file = open(filename, "a")
+  # We open our file to write over any file already named the same ("w" stands for wrtie)
+  text_file = open(filename, "w")
   # Create the column titles
   text_file.write("ImageId,Label\n")
+  # We close the file in order to append to it later
+  text_file.close()
   # i represents the Image ids
   i = 1
+  # We open our file where each write is now appended to the file ("w" stands for wrtie)
   text_file = open(filename, "a")
   for label in output:
       text_file.write("%d," % i)
