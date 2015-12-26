@@ -384,7 +384,7 @@ Lastly, we are now going to insert our save\_predictions function after our load
 ### Run your neural network!
 We are ready to run the neural network! However, before we run the program I want you to note some approximate benchmarks for how long the program will take to , depending on the type of neural network and whether you use a GPU.
 
-<table border="1" align="center">
+<table class="border-table">
   <tr>
     <th></th>
     <th>CPU Time Per Epoch (sec)</th>
