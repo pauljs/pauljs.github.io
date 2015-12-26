@@ -63,11 +63,11 @@ python mnist.py
 - You will then see the program state it is "Building model and compiling functions...". What this is really doing is creating your neural network for you before it starts to learn how to classify the MNIST images.
 - Next it will start training the neural network in order for it to learn how to classify the images. There will be some terminology such as "Epoch, training loss, validation loss, validation accuracy" that will be unfamiliar to you. This will be explained in the next blog post in full but a brief explanation for each is put below:
 
-  - Epoch: This represents 1 run through of all images used for training the neural network. In the MNIST dataset, 50,000 images are used for training, so 1 epoch represents presenting each of these 50,000 images to the neural network to learn
-  - Loss: This represents the error in our neural network's classification predictions.
-    - Training loss: The error when using only the images used for training.
-    - Validation loss: The error when providing the neural network with the 10,000 validation images. Validation images are separate from the training images because we want to get a glimpse of how well our neural network would do given new images.
-  - Validation accuracy: This gives the percent the neural network predicts correctly out of the given 10,000 validation images.
+  - **Epoch**: This represents 1 run through of all images used for training the neural network. In the MNIST dataset, 50,000 images are used for training, so 1 epoch represents presenting each of these 50,000 images to the neural network to learn
+  - **Loss**: This represents the error in our neural network's classification predictions.
+    - **Training loss**: The error when using only the images used for training.
+    - **Validation loss**: The error when providing the neural network with the 10,000 validation images. Validation images are separate from the training images because we want to get a glimpse of how well our neural network would do given new images.
+  - **Validation accuracy**: This gives the percent the neural network predicts correctly out of the given 10,000 validation images.
 - Once the 500 epochs are run through, you will see a final message stating the results with the test data. The test data contains 10,000 test images, similar to the validation data, but the neural network does not use the test data to learn from. You should get a final test result around 98% (I got 98.72%).
 
 Now you may be thinking, "you said < 1%? I should be getting at least 99%!" To get < 1%, we are going to edit the example given to us slightly in order to not only give a better accuracy, but to also allow easy input from our Kaggle competition.
