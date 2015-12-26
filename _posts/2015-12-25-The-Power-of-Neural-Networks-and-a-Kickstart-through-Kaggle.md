@@ -132,16 +132,19 @@ def load_kaggle_dataset():
 Now lets load our training data through a numpy function [genfromtxt](http://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.genfromtxt.html) that loads data from text files.
 
 ```python
-  # loads data into at Numpy array using a comma indicate a new element. dtype represents the type the data
-  # will be loaded as. We choose float32 since the original dtype is float64, whose precision is unstable when
-  # placed on the GPU
+  # loads data into at Numpy array using a comma indicate a 
+  # new element. dtype represents the type the data will be
+  # loaded as. We choose float32 since the original dtype 
+  # is float64, whose precision is unstable when placed on
+  # the GPU
   training_data = np.genfromtxt('train.csv', delimiter=",", dtype="float32")
 ```
 
 But remember that the function in the train.csv file is only used to tell us what each column is. We can actually remove this row using Numpy's [delete](http://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.delete.html) function
 
 ```python
-  # axis=0 means we are deleting a row (axis=0 represents rows, axis=1 represents columns, etc.)
+  # axis=0 means we are deleting a row (axis=0 represents 
+  # rows, axis=1 represents columns, etc.)
   # obj=0 means we are deleting the first row
   training_data = np.delete(np.genfromtxt('train.csv', delimiter=",", dtype="float32"), obj=0, axis=0)
 ```
@@ -149,14 +152,20 @@ But remember that the function in the train.csv file is only used to tell us wha
 Next we need to separate the training data into images and their respective labels. The first column has the labels and the rest are the images.
 
 ```python
-  # List of train images by deleting the 1st column of labels and reshaping the 784 pixels into their original 28 x 28
-  # image. Additionally, we divide all pixels by 256 in order to have the range of pixels between 0 and 1. This is
-  # done in order for neural networks to learn easier, keeping the range smaller but the proportions the same.
-  # (Actually the range [0, 255/256], for compatibility to the version provided at   
+  # List of train images by deleting the 1st column of
+  # labels and reshaping the 784 pixels into their 
+  # original 28 x 28 image. Additionally, we divide 
+  # all pixels by 256 in order to have the range of 
+  # pixels between 0 and 1. This is done in order for 
+  # neural networks to learn easier, keeping the range 
+  # smaller but the proportions the same. (Actually the
+  # range [0, 255/256], for compatibility to the version
+  # provided at   
   # http://deeplearning.net/data/mnist/mnist.pkl.gz.)
   training_data_X = np.delete(training_data, obj=0, axis=1).reshape(-1, 1, 28, 28) / 256
   
-  # List of corresponding labels for the training image. This is just all items from the first column
+  # List of corresponding labels for the training image.
+  # This is just all items from the first column
   training_data_Y = training_data[:, 0]
 ```
 
@@ -164,7 +173,7 @@ Lastly, we need to load the data from test.csv, which should be exactly the same
 without the label column
 
 ```python
-  tetest_data = np.delete(np.genfromtxt('test.csv', delimiter=',', dtype="float32"), obj=0, axis=0).reshape(-1, 1, 28, 28) / 256
+  test_data = np.delete(np.genfromtxt('test.csv', delimiter=',', dtype="float32"), obj=0, axis=0).reshape(-1, 1, 28, 28) / 256
 
 ```
 
@@ -191,7 +200,7 @@ def main(model='mln', num_epochs=500):
     X_train, y_train, X_test = load_kaggle_dataset()
 ```
 
-Lastly, we need to comment out the code in the main method that would tell us our final test results since our we don't know the corresponding labels to our new test data.
+Lastly, we need to comment out the code in the main method that would tell us our final test results since we don't know the corresponding labels to our new test data.
 
 ```python
 # After training, we compute and print the test error:
@@ -217,8 +226,8 @@ print("  test accuracy:\t\t{:.2f} %".format(
 <a name='get-predictions'></a>
 ### 2. Get Predictions
 Let's look at the current functions for evaluating predictions which can be found in the main function
-```python
 
+```python
 def main(...):
   ...
   # Create a loss expression for training, i.e., a scalar objective we want
@@ -258,17 +267,26 @@ def main(...):
 
 ```python
   # Get test predictions
-  # test_prediction contains the probabilities of the image being each number for each image. In other words,
-  # test_prediction contains arrays of length 10 where each array contains 10 percentages representing the probability
-  # that an image is a prticular number. For example, [0.1, 0.2, 0.1, 0.05, 0.05, 0.025, 0.025, 0.15, 0.1, 0.1] represents
-  # the image having a 10% probability of being a number 0, 20% probability of the image being a number 1, etc.
-  # We want to take the number with the highest probability which is why we use Theano's argmax function to do so.
-  # Theano's argmax function gives us the index of the probability (which in this case is also the number with the
-  # highest probability). We take the max across a row (axis=1), which is for each array of length 10.
-  get_test_predictions = T.argmax(test_prediction, axis=1)
-  # We create our function to obtain the values of the test_predictions. The theano function takes input_var which
-  # is the variable in the function representing our images input, and use the get_test_predictions directions we
-  # created to produce the values.
+  # test_prediction contains the probabilities of the image 
+  # being each number for each image. In other words,
+  # test_prediction contains arrays of length 10 where each
+  # array contains 10 percentages representing the 
+  # probability that an image is a prticular number. For
+  # example, [0.1, 0.2, 0.1, 0.05, 0.05, 0.025, 0.025, 0.15, 0.1, 0.1] 
+  # represents the image having a 10% probability of being
+  # a number 0, 20% probability of the image being a number
+  # 1, etc. We want to take the number with the highest
+  # probability which is why we use Theano's argmax function
+  # to do so. Theano's argmax function gives us the index of
+  # the probability (which in this case is also the number
+  # with the highest probability). We take the max across a 
+  # row (axis=1), which is for each array of length 10.
+  # get_test_predictions = T.argmax(test_prediction, axis=1)
+  # We create our function to obtain the values of the 
+  # test_predictions. The theano function takes input_var 
+  # which is the variable in the function representing our 
+  # images input, and use the get_test_predictions 
+  # directions we created to produce the values.
   test_predictions_fn = theano.function([input_var], get_test_predictions)
 ```
 
@@ -277,13 +295,17 @@ def main(...):
 Now that we have a way to get our predictions we need to create a save predictions method to save our answers to a file. We can place this function save_predictions right before our main function. It is not obvious from [Kaggle's submission page](https://www.kaggle.com/c/digit-recognizer/submissions/attach) what format the csv file should be. The csv needs to columns, one titled "ImageId" and the next titled "Label". Image ids are from 1 to 28000 and the predicted labels are already in that order.
 
 ```python
-# Take our new function test_predictions_fn as the first argument and X_test as the second in order to obtain the
-# predicted labels from it. We will make the saved file as "predicted_labels.csv"
+# Take our new function test_predictions_fn as the first 
+# argument and X_test as the second in order to obtain 
+# the predicted labels from it. We will make the saved 
+# file as "predicted_labels.csv"
 def save_predictions(test_predictions, X_test):
   filename = "predicted_labels.csv"
-  # Call to our newly defined functions to get X_test's predicted labels
+  # Call to our newly defined functions to get X_test's
+  # predicted labels
   output = test_predictions(X_test)
-  # We open our file to write over any file already named the same ("w" stands for wrtie)
+  # We open our file to write over any file already 
+  # named the same ("w" stands for write)
   text_file = open(filename, "w")
   # Create the column titles
   text_file.write("ImageId,Label\n")
@@ -291,7 +313,8 @@ def save_predictions(test_predictions, X_test):
   text_file.close()
   # i represents the Image ids
   i = 1
-  # We open our file where each write is now appended to the file ("w" stands for wrtie)
+  # We open our file where each write is now appended to 
+  # the file ("w" stands for wrtie)
   text_file = open(filename, "a")
   for label in output:
       text_file.write("%d," % i)
