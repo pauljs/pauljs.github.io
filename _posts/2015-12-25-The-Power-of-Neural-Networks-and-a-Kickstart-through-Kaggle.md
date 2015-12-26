@@ -271,7 +271,7 @@ def main(...):
   # being each number for each image. In other words,
   # test_prediction contains arrays of length 10 where each
   # array contains 10 percentages representing the 
-  # probability that an image is a prticular number. For
+  # probability that an image is a particular number. For
   # example, [0.1, 0.2, 0.1, 0.05, 0.05, 0.025, 0.025, 0.15, 0.1, 0.1] 
   # represents the image having a 10% probability of being
   # a number 0, 20% probability of the image being a number
@@ -314,7 +314,7 @@ def save_predictions(test_predictions, X_test):
   # i represents the Image ids
   i = 1
   # We open our file where each write is now appended to 
-  # the file ("w" stands for wrtie)
+  # the file ("a" stands for append)
   text_file = open(filename, "a")
   for label in output:
       text_file.write("%d," % i)
@@ -340,7 +340,8 @@ We will use this in a defined function save_nn which you can place after the mai
 def save_nn(network, filename):
   # Gets all of the parameters of the neural network
   all_params = lasagne.layers.get_all_params(network)
-  # Saves the parameters to a filename(in this case it will be model.npz) with the array title 'network'
+  # Saves the parameters to a filename(in this case it will be 
+  # model.npz) with the array title 'network'
   np.savez(filename, network=lasagne.layers.get_all_param_values(network))
 ```
 
@@ -360,7 +361,10 @@ We will now create a function load\_nn and place right after the save\_nn functi
 
 ```python
 def load_nn(network, filename):
+  # Load the file using numpy
   all_param_values = np.load(filename)
+  # Set all the parameter value to our saved neural network.
+  # This is just doing the opposite of our save_nn function
   lasagne.layers.set_all_param_values(network, all_param_values['network']) 
 ```
 
@@ -380,7 +384,7 @@ Lastly, we are now going to insert our save\_predictions function after our load
 ### Run your neural network!
 We are ready to run the neural network! However, before we run the program I want you to note some approximate benchmarks for how long the program will take to , depending on the type of neural network and whether you use a GPU.
 
-<table align="center">
+<table border="1" align="center">
   <tr>
     <th></th>
     <th>CPU Time Per Epoch (sec)</th>
@@ -403,7 +407,8 @@ The CPU times can vary depending on your machine, but the point is that if we ru
 Now let's go ahead and run a test of our program! On the terminal run this command to start:
 
 ```
-# We pass the argument 'cnn' in order to run a particular type of neural network which will provide better accuracy for
+# We pass the argument 'cnn' in order to run a particular type of 
+# neural network which will provide better accuracy for
 # this problem. We give another argument 1 to run only 1 epoch
 python kaggle-mnist.py 'cnn' 1
 ```
@@ -429,7 +434,8 @@ def save_predictions(test_predictions, X_test):
   # We split our test images into 5 sets
   splits = np.split(X_test, 5)
   i = 1
-  # For each split we get their predicted labels and append them to our save file
+  # For each split we get their predicted labels and append them 
+  # to our save file
   for split in splits:
       output = test_output(split)
       for label in output:
