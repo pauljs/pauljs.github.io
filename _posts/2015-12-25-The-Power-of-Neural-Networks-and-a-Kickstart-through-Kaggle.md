@@ -34,7 +34,7 @@ In order to see how well we are doing, we will enter a Kaggle competition to com
 ##Optionally Setup Lasagne
 For this setup we are going to use the python neural network library Lasagne. There are several other neural network libraries out here such as TensorFlow (we will get to this one in the next blog post), Keras, Caffe, etc. A majority of computer scientists tend to use python when using neural networks (this will be clear in the next blog post LINK), so we will use Lasagne as a basis since it uses python. To setup Lasagne, click the link to the blog post below. When you complete the installation, you will be redirected back here. If you have any trouble installing or have advice to make it more clear, feel free to reach out!
 
-[Setup Lasagne](http://pauljs.github.io/Installing-Ubuntu-and-Lasagne/)
+[Setup Lasagne](http://pauljs.github.io/Dual-Booting-Ubuntu-and-Installing-Lasagne/)
 
 <a name='examples'></a>
 ##Lasagne Examples
