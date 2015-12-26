@@ -279,6 +279,16 @@ nav {
     font-size: 16px;
     text-align: justify;
   }
+  
+  .border-table {
+  	table, th, td {
+  		border: 1px solid black;
+  	}
+  	
+  	th, td {
+  		padding: 15px;
+  	}
+  }
 }
 
 .wrapper-footer {
