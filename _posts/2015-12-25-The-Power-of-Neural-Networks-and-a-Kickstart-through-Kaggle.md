@@ -54,7 +54,7 @@ cd Lasagne/examples
 
 Here you will find will find an example python file named "mnist.py" which contains a few neural networks built to handle the MNIST images and to learn how to classify them by their respective numbers. We can actually just run the python file and see the working example go. Use the following command to start:
 
-```python
+```
 python mnist.py
 ```
 
@@ -91,8 +91,7 @@ cp mnist.py kaggle-mnist.py
 
 Looking at kaggle-mnist.py, we see we have several functions:
 
-`dataset
-n
+```python
 # Loads the MNIST dataset and downloads it if not in the same directory
 def load_dataset()
 # The next three functions creates neural networks of varying types
@@ -107,11 +106,11 @@ def main
 
 In order to make this file work with our Kaggle competition, we need to:
 
-1. Create our own load_kaggle_dataset function to load our train and test csv files
-2. Create a get_predictions function to see what our neural network predicted
-3. Create a save_predictions function to save our predicted labels in the required csv format
-4. Create a save_neural_network function to optionally save our neural network at the end of training
-5. Create a load_neural_network function to optionally load a previously saved neural network to perform testing on
+1. Create our own load\_kaggle_dataset function to load our train and test csv files
+2. Create a get\_predictions function to see what our neural network predicted
+3. Create a save\_predictions function to save our predicted labels in the required csv format
+4. Create a save\_neural\_network function to optionally save our neural network at the end of training
+5. Create a load\_neural\_network function to optionally load a previously saved neural network to perform testing on
 
 ### 1. Load Kaggle Dataset
 Looking at our main function below we can see the first function is a call to load our dataset
@@ -123,7 +122,7 @@ def main(model='mlp', num_epochs=500):
     X_train, y_train, X_val, y_val, X_test, y_test = load_dataset()
 ```
 
-We need to replace the X_train, y_train, and X_test with our own personal function load_kaggle_dataset. To do this we will load the csv files using Numpy (referred to typically as "np" in python). [Numpy](http://www.numpy.org/) is one of the dependencies requried by Lasagne and is really just a package to do efficient operations on matrices. First let's define our function above the previous load_dataset function.
+We need to replace the X\_train, y\_train, and X\_test with our own personal function load\_kaggle\_dataset. To do this we will load the csv files using Numpy (referred to typically as "np" in python). [Numpy](http://www.numpy.org/) is one of the dependencies requried by Lasagne and is really just a package to do efficient operations on matrices. First let's define our function above the previous load\_dataset function.
 
 ```python
 def load_kaggle_dataset():
@@ -255,7 +254,7 @@ def main(...):
   val_fn = theano.function([input_var, target_var], [test_loss, test_acc])
 ```
 
-  - From the descriptions above, we can see that "test_prediction" contains the predictions for the test images. However, we can't access these directly due to the nature of how Lasagne works. Lasagne uses Theano which ports directions on implementation to a more efficient language to do fast computations (see the following post for a more in depth description). You can think of "test_prediction" as currently being in that other language, and we need to make a Theano function in order to obtain its values. This is why we have "train_fn" and "val_fn" which gives us access to values in the other language. Thus, we just need to create a function that returns the values of test_prediction. We will place this below val_fn.
+  - From the descriptions above, we can see that "test\_prediction" contains the predictions for the test images. However, we can't access these directly due to the nature of how Lasagne works. Lasagne uses Theano which ports directions on implementation to a more efficient language to do fast computations (see the following post for a more in depth description). You can think of "test\_prediction" as currently being in that other language, and we need to make a Theano function in order to obtain its values. This is why we have "train\_fn" and "val\_fn" which gives us access to values in the other language. Thus, we just need to create a function that returns the values of test\_prediction. We will place this below val\_fn.
 
 ```python
   # Get test predictions
@@ -334,7 +333,7 @@ save_nn(network, filename)
 
 <a name='load-nn'></a>
 ### 5. Load a saved neural network
-We will now create a function load_nn and place right after the save_nn function
+We will now create a function load\_nn and place right after the save\_nn function
 
 ```python
 def load_nn(network, filename):
@@ -342,7 +341,7 @@ def load_nn(network, filename):
   lasagne.layers.set_all_param_values(network, all_param_values['network']) 
 ```
 
-To make sure this works you can place this right after the save_nn function call in your main method
+To make sure this works you can place this right after the save\_nn function call in your main method
 
 ```python
 # Optionally, you could now dump the network weights to a file like this:
@@ -352,7 +351,7 @@ save_nn(network, filename)
 load_nn(network, filename)
 ```
 
-Lastly, we are now going to insert our save_predictions function after our load_nn function. The key really is to save the function after our save_nn function. The reason why is because there are sometimes memory issues with retrieving all of our test image predictions at once; we might not have enough memory to pull all 28,000 image predictions at once from Theano. We will fix this if you have this problem when running the program below.
+Lastly, we are now going to insert our save\_predictions function after our load\_nn function. The key really is to save the function after our save_nn function. The reason why is because there are sometimes memory issues with retrieving all of our test image predictions at once; we might not have enough memory to pull all 28,000 image predictions at once from Theano. We will fix this if you have this problem when running the program below.
 
 <a name='run'></a>
 ### Run your neural network!
@@ -396,7 +395,7 @@ Error allocating 2064384000 bytes of device memory (out of memory). Driver repor
 If you do then you ran out of memory when attempting to get our test prediction values from Theano. I wanted you to see this error in case it happens in the future. To fix this follow the next section. If you didn't get this error, great! But you should still follow the next section because this error will probably happen to you if you move on to more complex neural networks.
 
 #### Memory issues
-If you look closely at your error you will see that it occurs in our save_predictions method. Specifically, it occurs at our call to the theano function test_predictions_fn. The X_test we pass to this theano function is requesting too large of a numpy array to return; it is able to calculate the answers but can't bring it back from the theano function. To fix this all we need to do is split our X_train into several parts and make a several calls to our theano function test_predictions_fn to get answers in smaller chunks.
+If you look closely at your error you will see that it occurs in our save\_predictions method. Specifically, it occurs at our call to the theano function test\_predictions\_fn. The X\_test we pass to this theano function is requesting too large of a numpy array to return; it is able to calculate the answers but can't bring it back from the theano function. To fix this all we need to do is split our X\_train into several parts and make a several calls to our theano function test\_predictions\_fn to get answers in smaller chunks.
 
 ```python
 def save_predictions(test_predictions, X_test):
