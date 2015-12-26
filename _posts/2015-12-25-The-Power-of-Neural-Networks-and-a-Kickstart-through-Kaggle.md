@@ -149,7 +149,7 @@ But remember that the function in the train.csv file is only used to tell us wha
   training_data = np.delete(np.genfromtxt('train.csv', delimiter=",", dtype="float32"), obj=0, axis=0)
 ```
 
-Next we need to separate the training data into images and their respective labels. The first column has the labels and the rest are the images.
+Next we need to separate the training data into images and their respective labels. The first column has the labels and the rest are the images. We also used numpy's [reshape](http://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.ndarray.reshape.html) method to reconstruct the images. (The -1 in the reshape method automatically applies the reshape to each of the training images).
 
 ```python
   # List of train images by deleting the 1st column of
