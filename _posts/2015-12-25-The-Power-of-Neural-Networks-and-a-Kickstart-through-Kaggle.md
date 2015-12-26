@@ -7,6 +7,7 @@ date: 2015-12-25 12:35:00
 ---
 
 Table of Contents:
+
 - [Introduction](#intro)
 - [Setup Ubuntu and Lasagne](#setup)
 - [Lasagne Examples](#examples)
@@ -38,23 +39,30 @@ For this setup we are going to use the python neural network library Lasagne. Th
 <a name='examples'></a>
 ##Lasagne Examples
 Now that you have successfully installed Lasagne, we are going to take a quick glimpse at the provided examples. To view the examples we need to download them by cloning the Lasagne github repository by using the command:
+
 ```
 git clone https://github.com/Lasagne/Lasagne.git
 ```
+
   - This may require you to install git. Look [here](http://git-scm.com/documentation) if you don't know what git is and [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) if you need help installing. As long as git is installed, you don't need to know how to use git for this tutorial. Once you have git installed use the above command to get the Lasagne examples
 
 Go ahead and move into the Lasagne folder by using:
+
 ```
 cd Lasagne/examples
 ```
+
 Here you will find will find an example python file named "mnist.py" which contains a few neural networks built to handle the MNIST images and to learn how to classify them by their respective numbers. We can actually just run the python file and see the working example go. Use the following command to start:
+
 ```python
 python mnist.py
 ```
-- First, if you have GPU enabled, you should see a statement stating a gpu device is being used. If you don't *****
+
+- First, if you have GPU enabled, you should see a statement stating a gpu device is being used. If you don't, you will be using your CPU.
 - Next the file will attempt to load the MNIST images into the program. If the images are not downloaded, then the program will go ahead and download them for you
 - You will then see the program state it is "Building model and compiling functions...". What this is really doing is creating your neural network for you before it starts to learn how to classify the MNIST images.
 - Next it will start training the neural network in order for it to learn how to classify the images. There will be some terminology such as "Epoch, training loss, validation loss, validation accuracy" that will be unfamiliar to you. This will be explained in the next blog post in full but a brief explanation for each is put below:
+
   - Epoch: This represents 1 run through of all images used for training the neural network. In the MNIST dataset, 50,000 images are used for training, so 1 epoch represents presenting each of these 50,000 images to the neural network to learn
   - Loss: This represents the error in our neural network's classification predictions.
     - Training loss: The error when using only the images used for training.
@@ -68,6 +76,7 @@ Now you may be thinking, "you said < 1%? I should be getting at least 99%!" To g
 ##Kaggle Competition
 
 Now is a great time to start the Kaggle competition. Go ahead and go to [Kaggle's website](https://www.kaggle.com/) and make an account. Once you have, make your way to the [Digit Recognizer competition](https://www.kaggle.com/c/digit-recognizer). From this page you can see the goal is to classify the MNIST dataset. Go to the next section [Get the Data](https://www.kaggle.com/c/digit-recognizer/data) in order to download the data. From the description we can grasp these key points:
+
 - Images are 28 pixels by 28 pixels for a total of 784 pixels
 - Each pixel value is integer ranging in value between 0 and 255 inclusive, indicating lightness and darkness of a pixel. 0 represents white and 255 is black
 - We are given a train.csv file of 42,000 training images. There is a title row to tell what each column is, and each row represents a different image. Additionally the first column is the label column which represents what number the image represents.
@@ -75,11 +84,15 @@ Now is a great time to start the Kaggle competition. Go ahead and go to [Kaggle'
 - Images are layed out in the csv file in a row from pixel 0 to pixel 783. To put back into proper 28 x 28 form, we can just take batches of 28 pixels and stack them horizontally.
 
 Lets go ahead and download the train.csv and test.csv files and move them to the same directory as the mnist.py. Additionally, lets make a copy of mnist.py and call it "kaggle-mnist.py" so we can preserve the original.
+
 ```
 cp mnist.py kaggle-mnist.py
 ```
+
 Looking at kaggle-mnist.py, we see we have several functions:
-```python
+
+`dataset
+n
 # Loads the MNIST dataset and downloads it if not in the same directory
 def load_dataset()
 # The next three functions creates neural networks of varying types
@@ -91,6 +104,7 @@ def iterate_minibatches
 # Starts the main program
 def main
 ```
+
 In order to make this file work with our Kaggle competition, we need to:
 
 1. Create our own load_kaggle_dataset function to load our train and test csv files
@@ -101,31 +115,40 @@ In order to make this file work with our Kaggle competition, we need to:
 
 ### 1. Load Kaggle Dataset
 Looking at our main function below we can see the first function is a call to load our dataset
+
 ```python
 def main(model='mlp', num_epochs=500):
     # Load the dataset
     print("Loading data...")
     X_train, y_train, X_val, y_val, X_test, y_test = load_dataset()
 ```
+
 We need to replace the X_train, y_train, and X_test with our own personal function load_kaggle_dataset. To do this we will load the csv files using Numpy (referred to typically as "np" in python). [Numpy](http://www.numpy.org/) is one of the dependencies requried by Lasagne and is really just a package to do efficient operations on matrices. First let's define our function above the previous load_dataset function.
+
 ```python
 def load_kaggle_dataset():
 
 ```
+
 Now lets load our training data through a numpy function [genfromtxt](http://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.genfromtxt.html) that loads data from text files.
+
 ```python
   # loads data into at Numpy array using a comma indicate a new element. dtype represents the type the data
   # will be loaded as. We choose float32 since the original dtype is float64, whose precision is unstable when
   # placed on the GPU
   training_data = np.genfromtxt('train.csv', delimiter=",", dtype="float32")
 ```
-But remember that the first row in the train.csv file is only used to tell us what each column is. We can actually remove this row using Numpy's [delete](http://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.delete.html) function
+
+But remember that the function in the train.csv file is only used to tell us what each column is. We can actually remove this row using Numpy's [delete](http://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.delete.html) function
+
 ```python
   # axis=0 means we are deleting a row (axis=0 represents rows, axis=1 represents columns, etc.)
   # obj=0 means we are deleting the first row
   training_data = np.delete(np.genfromtxt('train.csv', delimiter=",", dtype="float32"), obj=0, axis=0)
 ```
+
 Next we need to separate the training data into images and their respective labels. The first column has the labels and the rest are the images.
+
 ```python
   # List of train images by deleting the 1st column of labels and reshaping the 784 pixels into their original 28 x 28
   # image. Additionally, we divide all pixels by 256 in order to have the range of pixels between 0 and 1. This is
@@ -137,13 +160,17 @@ Next we need to separate the training data into images and their respective labe
   # List of corresponding labels for the training image. This is just all items from the first column
   training_data_Y = training_data[:, 0]
 ```
+
 Lastly, we need to load the data from test.csv, which should be exactly the same as loading in the training data but
 without the label column
+
 ```python
   tetest_data = np.delete(np.genfromtxt('test.csv', delimiter=',', dtype="float32"), obj=0, axis=0).reshape(-1, 1, 28, 28) / 256
 
 ```
+
 The full method is therefore:
+
 ```python
 def load_kaggle_dataset():
     training_data = np.delete(np.genfromtxt('train.csv', delimiter=",", dtype="float32"), obj=0, axis=0)
@@ -153,7 +180,9 @@ def load_kaggle_dataset():
     # training_data_Y is cast to int32 since all labels are integer and for similar reasons as previous castings
     return training_data_X, np.int32(training_data_Y), test_data
 ```
+
 Now that we create our new load method we need to insert it into our main method. Let's put it right below the previous load function in order to still use the validation data given to us by it, so we can see approximately how well our neural network is doing while it is training.
+
 ```python
 def main(model='mln', num_epochs=500):
     # Load the dataset
@@ -162,7 +191,9 @@ def main(model='mln', num_epochs=500):
     # Newly inserted load_kaggle_dataset to repalce X_train, y_train, X_test
     X_train, y_train, X_test = load_kaggle_dataset()
 ```
+
 Lastly, we need to comment out the code in the main method that would tell us our final test results since our we don't know the corresponding labels to our new test data.
+
 ```python
 # After training, we compute and print the test error:
 # Comment all of the code below
@@ -188,6 +219,7 @@ print("  test accuracy:\t\t{:.2f} %".format(
 ### 2. Get Predictions
 Let's look at the current functions for evaluating predictions which can be found in the main function
 ```python
+
 def main(...):
   ...
   # Create a loss expression for training, i.e., a scalar objective we want
@@ -222,7 +254,9 @@ def main(...):
   # Compile a second function computing the validation loss and accuracy:
   val_fn = theano.function([input_var, target_var], [test_loss, test_acc])
 ```
+
   - From the descriptions above, we can see that "test_prediction" contains the predictions for the test images. However, we can't access these directly due to the nature of how Lasagne works. Lasagne uses Theano which ports directions on implementation to a more efficient language to do fast computations (see the following post for a more in depth description). You can think of "test_prediction" as currently being in that other language, and we need to make a Theano function in order to obtain its values. This is why we have "train_fn" and "val_fn" which gives us access to values in the other language. Thus, we just need to create a function that returns the values of test_prediction. We will place this below val_fn.
+
 ```python
   # Get test predictions
   # test_prediction contains the probabilities of the image being each number for each image. In other words,
@@ -242,6 +276,7 @@ def main(...):
 <a name='save-predictions'></a>
 ### 3. Save predictions
 Now that we have a way to get our predictions we need to create a save predictions method to save our answers to a file. We can place this function save_predictions right before our main function. It is not obvious from [Kaggle's submission page](https://www.kaggle.com/c/digit-recognizer/submissions/attach) what format the csv file should be. The csv needs to columns, one titled "ImageId" and the next titled "Label". Image ids are from 1 to 28000 and the predicted labels are already in that order.
+
 ```python
 # Take our new function test_predictions_fn as the first argument and X_test as the second in order to obtain the
 # predicted labels from it. We will make the saved file as "predicted_labels.csv"
@@ -265,16 +300,20 @@ def save_predictions(test_predictions, X_test):
       text_file.write("%d\n" % label)
   text_file.close()
 ```
+
 We are going to hold off on inserting this function into our main method for now. The reason why will be explained below.
 
 <a name='save-nn'></a>
 ### 4. Save the neural network
 Luckily at the bottom of the kaggle-mnist.py file, we have a suggested method to save the neural network. 
+
 ```python
 # Optionally, you could now dump the network weights to a file like this:
 # np.savez('model.npz', lasagne.layers.get_all_param_values(network))
 ```
+
 We will use this in a defined function save_nn which you can place after the main method.
+
 ```python
 def save_nn(network, filename):
   # Gets all of the parameters of the neural network
@@ -282,7 +321,9 @@ def save_nn(network, filename):
   # Saves the parameters to a filename(in this case it will be model.npz) with the array title 'network'
   np.savez(filename, network=lasagne.layers.get_all_param_values(network))
 ```
+
 Now place the newly defined method in your main method
+
 ```python
 # Optionally, you could now dump the network weights to a file like this:
 # np.savez('model.npz', lasagne.layers.get_all_param_values(network))
@@ -294,12 +335,15 @@ save_nn(network, filename)
 <a name='load-nn'></a>
 ### 5. Load a saved neural network
 We will now create a function load_nn and place right after the save_nn function
+
 ```python
 def load_nn(network, filename):
   all_param_values = np.load(filename)
   lasagne.layers.set_all_param_values(network, all_param_values['network']) 
 ```
+
 To make sure this works you can place this right after the save_nn function call in your main method
+
 ```python
 # Optionally, you could now dump the network weights to a file like this:
 # np.savez('model.npz', lasagne.layers.get_all_param_values(network))
@@ -307,11 +351,13 @@ filename = "model.npz"
 save_nn(network, filename)
 load_nn(network, filename)
 ```
+
 Lastly, we are now going to insert our save_predictions function after our load_nn function. The key really is to save the function after our save_nn function. The reason why is because there are sometimes memory issues with retrieving all of our test image predictions at once; we might not have enough memory to pull all 28,000 image predictions at once from Theano. We will fix this if you have this problem when running the program below.
 
 <a name='run'></a>
 ### Run your neural network!
 We are ready to run the neural network! However, before we run the program I want you to note some approximate benchmarks for how long the program will take to , depending on the type of neural network and whether you use a GPU.
+
 <table align="center">
   <tr>
     <th></th>
@@ -329,24 +375,29 @@ We are ready to run the neural network! However, before we run the program I wan
     <td>6</td>	
   </tr>
 </table>
+
 The CPU times can vary depending on your machine, but the point is that if we run the default of 500 epochs, CPU times can take hours to even days to complete depending on the size of dataset and neural network! This is why a GPU is highly recommended for creating neural networks.
 
 Now let's go ahead and run a test of our program! On the terminal run this command to start:
-```python
+
+```
 # We pass the argument 'cnn' in order to run a particular type of neural network which will provide better accuracy for
 # this problem. We give another argument 1 to run only 1 epoch
 python kaggle-mnist.py 'cnn' 1
 ```
 
 After the 1 epoch is run, see if you get this message:
+
 ```
 Error allocating 2064384000 bytes of device memory (out of memory). Driver report 1774694400 bytes free and 2146762752 bytes total
 ...
 ```
+
 If you do then you ran out of memory when attempting to get our test prediction values from Theano. I wanted you to see this error in case it happens in the future. To fix this follow the next section. If you didn't get this error, great! But you should still follow the next section because this error will probably happen to you if you move on to more complex neural networks.
 
 #### Memory issues
 If you look closely at your error you will see that it occurs in our save_predictions method. Specifically, it occurs at our call to the theano function test_predictions_fn. The X_test we pass to this theano function is requesting too large of a numpy array to return; it is able to calculate the answers but can't bring it back from the theano function. To fix this all we need to do is split our X_train into several parts and make a several calls to our theano function test_predictions_fn to get answers in smaller chunks.
+
 ```python
 def save_predictions(test_predictions, X_test):
   filename = "predicted_labels.csv"
@@ -369,9 +420,11 @@ def save_predictions(test_predictions, X_test):
 
 #### Submitting to Kaggle
 Now that we fixed the memory issue we can finally get our predictions! Go ahead and run the following command:
+
 ```python
 python kagggle-mnist.py 'cnn'
 ```
+
 When it is complete you will find the predicted_labels.csv file in your directory. Then, head on over to the [Kaggle submission page](https://www.kaggle.com/c/digit-recognizer/submissions/attach) and submit the file. When Kaggle completes the upload you should have an accuracy around 99%! (I got 99.414%).
 
 As stated a few times in this tutorial, more specifics on how libraries like Lasagne and Theano work will be mentioned in the next blog post, but this time using Google's TensorFlow. After that we will start diving into research papers on deep learning and neural networks to understand how neural networks work and what researchers are looking into in order to improve deep learning. See you in the next post!
