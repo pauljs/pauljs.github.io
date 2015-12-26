@@ -299,11 +299,11 @@ Now that we have a way to get our predictions we need to create a save predictio
 # argument and X_test as the second in order to obtain 
 # the predicted labels from it. We will make the saved 
 # file as "predicted_labels.csv"
-def save_predictions(test_predictions, X_test):
+def save_predictions(test_predictions_fn, X_test):
   filename = "predicted_labels.csv"
   # Call to our newly defined functions to get X_test's
   # predicted labels
-  output = test_predictions(X_test)
+  output = test_predictions_fn(X_test)
   # We open our file to write over any file already 
   # named the same ("w" stands for write)
   text_file = open(filename, "w")
@@ -426,7 +426,7 @@ If you do then you ran out of memory when attempting to get our test prediction 
 If you look closely at your error you will see that it occurs in our save\_predictions method. Specifically, it occurs at our call to the theano function test\_predictions\_fn. The X\_test we pass to this theano function is requesting too large of a numpy array to return; it is able to calculate the answers but can't bring it back from the theano function. To fix this all we need to do is split our X\_train into several parts and make a several calls to our theano function test\_predictions\_fn to get answers in smaller chunks.
 
 ```python
-def save_predictions(test_predictions, X_test):
+def save_predictions(test_predictions_fn, X_test):
   filename = "predicted_labels.csv"
   text_file = open(filename, "w")
   text_file.write("ImageId,Label\n")
@@ -437,7 +437,7 @@ def save_predictions(test_predictions, X_test):
   # For each split we get their predicted labels and append them 
   # to our save file
   for split in splits:
-      output = test_output(split)
+      output = test_predictions_fn(split)
       for label in output:
           text_file = open(filename, "a")
           text_file.write("%d," % i)
