@@ -144,8 +144,11 @@ But remember that the function in the train.csv file is only used to tell us wha
 
 ```python
   # axis=0 means we are deleting a row (axis=0 represents 
-  # rows, axis=1 represents columns, etc.)
-  # obj=0 means we are deleting the first row
+  # columns, axis=1 represents rows, etc.)
+  # obj=0 means we are deleting the first slice in whatever
+  # axis we are in. In this case, we delete the along the
+  # rows (axis=0), and we delete the first slice along this
+  # axis (obj=0). This means we delete the first row.
   training_data = np.delete(np.genfromtxt('train.csv', delimiter=",", dtype="float32"), obj=0, axis=0)
 ```
 
