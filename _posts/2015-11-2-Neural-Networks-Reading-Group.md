@@ -44,3 +44,4 @@ the explanations will help translate any complexities. Happy learning!
   2. [Google's 2nd blog post](http://googleresearch.blogspot.com/2015/11/tensorflow-googles-latest-machine_9.html)
   3. [TensorFlow paper](http://download.tensorflow.org/paper/whitepaper2015.pdf)
 12. [Deep Convolutional Generative Adversarial Networks](http://arxiv.org/abs/1511.06434)
+13. [Generative Adversarial Networks](http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf)
