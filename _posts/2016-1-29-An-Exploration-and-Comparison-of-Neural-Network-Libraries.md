@@ -28,16 +28,31 @@ Table of Contents:
 
 <a name='install'></a>
 <a name='lasagne-install'></a>
+###Lasagne Installation
 To look at the Lasagne install go the [Lasagne install blog post](http://pauljs.github.io/Dual-Booting-Ubuntu-and-Installing-Lasagne/) which includes a tutorial on dual booting Ubuntu with Windows. This was a part of the first blog post [The Power of Neural Networks and a Kickstart through Kaggle](http://pauljs.github.io/The-Power-of-Neural-Networks-and-a-Kickstart-through-Kaggle/)
 
 <a name='tensorflow-install'></a>
+###Lasagne Installation
+
 <a name='pretty-install'></a>
+###Pretty Tensor Installation
+
 <a name='caffe-install'></a>
+###Caffe Installation
+
 <a name='keras-install'></a>
+###Keras Installation
+
 <a name='implementations'></a>
+##MNIST Implementations
+
 <a name='analysis'></a>
+##Time and Statistical Analysis
+
 <a name='updates'></a>
+##Libraries' Updates for Current and New Research
 <a name='conclusion'></a>
+##Conclusion
 If you have any other neural network libraries you want me to discuss and compare feel free to put them in the comments!
 
 
