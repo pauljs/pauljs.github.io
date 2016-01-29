@@ -5,7 +5,7 @@ title: An Exploration and Comparison of Neural Network Libraries
 excerpt: "There are a vast number of neural network libraries available to use. In this post, we will explore and compare the
 performance of some of the most popular neural network libraries, as well as what happens behind the scenes in order to make 
 them so efficient."
-date: 2015-12-25 12:35:00
+date: 2016-01-29 3:38:00
 ---
 
 Table of Contents:
