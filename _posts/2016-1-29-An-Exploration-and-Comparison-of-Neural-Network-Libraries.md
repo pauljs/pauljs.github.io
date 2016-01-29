@@ -32,7 +32,7 @@ Table of Contents:
 To look at the Lasagne install go the [Lasagne install blog post](http://pauljs.github.io/Dual-Booting-Ubuntu-and-Installing-Lasagne/) which includes a tutorial on dual booting Ubuntu with Windows. This was a part of the first blog post [The Power of Neural Networks and a Kickstart through Kaggle](http://pauljs.github.io/The-Power-of-Neural-Networks-and-a-Kickstart-through-Kaggle/)
 
 <a name='tensorflow-install'></a>
-###Lasagne Installation
+###TensorFlow Installation
 
 <a name='pretty-install'></a>
 ###Pretty Tensor Installation
