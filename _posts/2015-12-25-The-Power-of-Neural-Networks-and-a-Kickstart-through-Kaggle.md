@@ -195,7 +195,7 @@ def load_kaggle_dataset():
 Now that we create our new load method we need to insert it into our main method. Let's put it right below the previous load function in order to still use the validation data given to us by it, so we can see approximately how well our neural network is doing while it is training.
 
 ```python
-def main(model='mln', num_epochs=500):
+def main(model='mlp', num_epochs=500):
     # Load the dataset
     print("Loading data...")
     X_train, y_train, X_val, y_val, X_test, y_test = load_dataset()
