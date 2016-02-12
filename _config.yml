@@ -54,6 +54,8 @@ baseurl: ""
 #
 pygments: true
 markdown: kramdown
+kramdown:
+  input: GFM # Enable GitHub Flavored Markdown (fenced code blocks)
 highlighter: rouge
 permalink: /:title/
 
