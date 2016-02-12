@@ -20,6 +20,7 @@ Table of Contents:
   - [Run Your Neural Network](#run)
 
 <a name='intro'></a>
+
 ## The Power of Neural Networks and a Kickstart through Kaggle: An Introduction
 
 Welcome to the first post in a series of blogs with a focus on making current research in deep learning and neural networks more tangeable! While this post will not go into details on what deep learning and neural networks are (this is saved for the next post), in this section, we are going to use the introduction machine learning problem on labeling pictures of numbers using the MNIST dataset to show the power of neural networks. We are then going to enter a competition and produce a submission with < 1% error! For those who are unaware, MNIST stands for Modified (or Mixed) National Institute of Standards and Technology and is a dataset of 70,000 black and white images (28 pixels by 28 pixels) of the numbers 0 through 9. A few examples of these images can be seen below. MNIST was created from two separate datasets whose purpose was to create a standard for how numbers were written. Half of the dataset is from American high school students' written digits and the other half is from American Census Bureau employees' written digits.
@@ -31,13 +32,17 @@ We are going to use neural networks to classify these images by their respective
 In order to see how well we are doing, we will enter a Kaggle competition to compete for the best accuracy with our predicted classifications. Kaggle is a website that hosts competitions on predicitive analytics in order for researchers and people to produce the best predictive models, and I will teach you how to easily create a neural network that will earn you a top 50 finish! There will be some initial set up if you want to follow along, but if you don't you will be able to read the code and interact with the neural network right here on this blog!
 
 <a name='setup'></a>
-##Optionally Setup Lasagne
+
+## Optionally Setup Lasagne
+
 For this setup we are going to use the python neural network library Lasagne. There are several other neural network libraries out here such as TensorFlow (we will get to this one in the next blog post), Keras, Caffe, etc. A majority of computer scientists tend to use python when using neural networks (this will be clear in the next blog post LINK), so we will use Lasagne as a basis since it uses python. To setup Lasagne, click the link to the blog post below. When you complete the installation, you will be redirected back here. If you have any trouble installing or have advice to make it more clear, feel free to reach out!
 
 [Setup Lasagne](http://pauljs.github.io/Dual-Booting-Ubuntu-and-Installing-Lasagne/)
 
 <a name='examples'></a>
-##Lasagne Examples
+
+## Lasagne Examples
+
 Now that you have successfully installed Lasagne, we are going to take a quick glimpse at the provided examples. To view the examples we need to download them by cloning the Lasagne github repository by using the command:
 
 ```
@@ -73,7 +78,8 @@ python mnist.py
 Now you may be thinking, "you said < 1%? I should be getting at least 99%!" To get < 1%, we are going to edit the example given to us slightly in order to not only give a better accuracy, but to also allow easy input from our Kaggle competition.
 
 <a name='kaggle'></a>
-##Kaggle Competition
+
+## Kaggle Competition
 
 Now is a great time to start the Kaggle competition. Go ahead and go to [Kaggle's website](https://www.kaggle.com/) and make an account. Once you have, make your way to the [Digit Recognizer competition](https://www.kaggle.com/c/digit-recognizer). From this page you can see the goal is to classify the MNIST dataset. Go to the next section [Get the Data](https://www.kaggle.com/c/digit-recognizer/data) in order to download the data. From the description we can grasp these key points:
 
@@ -113,6 +119,7 @@ In order to make this file work with our Kaggle competition, we need to:
 5. Create a load\_neural\_network function to optionally load a previously saved neural network to perform testing on
 
 <a name='load-dataset'></a>
+
 ### 1. Load Kaggle Dataset
 Looking at our main function below we can see the first function is a call to load our dataset
 
@@ -228,7 +235,9 @@ print("  test accuracy:\t\t{:.2f} %".format(
 ```
 
 <a name='get-predictions'></a>
+
 ### 2. Get Predictions
+
 Let's look at the current functions for evaluating predictions which can be found in the main function
 
 ```python
@@ -295,7 +304,9 @@ def main(...):
 ```
 
 <a name='save-predictions'></a>
+
 ### 3. Save predictions
+
 Now that we have a way to get our predictions we need to create a save predictions method to save our answers to a file. We can place this function save_predictions right before our main function. It is not obvious from [Kaggle's submission page](https://www.kaggle.com/c/digit-recognizer/submissions/attach) what format the csv file should be. The csv needs to columns, one titled "ImageId" and the next titled "Label". Image ids are from 1 to 28000 and the predicted labels are already in that order.
 
 ```python
@@ -330,7 +341,9 @@ def save_predictions(test_predictions_fn, X_test):
 We are going to hold off on inserting this function into our main method for now. The reason why will be explained below.
 
 <a name='save-nn'></a>
+
 ### 4. Save the neural network
+
 Luckily at the bottom of the kaggle-mnist.py file, we have a suggested method to save the neural network. 
 
 ```python
@@ -360,7 +373,9 @@ save_nn(network, filename)
 ```
 
 <a name='load-nn'></a>
+
 ### 5. Load a saved neural network
+
 We will now create a function load\_nn and place right after the save\_nn function
 
 ```python
@@ -385,7 +400,9 @@ load_nn(network, filename)
 Lastly, we are now going to insert our save\_predictions function after our load\_nn function. The key really is to save the function after our save_nn function. The reason why is because there are sometimes memory issues with retrieving all of our test image predictions at once; we might not have enough memory to pull all 28,000 image predictions at once from Theano. We will fix this if you have this problem when running the program below.
 
 <a name='run'></a>
+
 ### Run your neural network!
+
 We are ready to run the neural network! However, before we run the program I want you to note some approximate benchmarks for how long the program will take to, depending on the type of neural network and whether you use a GPU.
 
 <table class="border-table">
@@ -427,6 +444,7 @@ Error allocating 2064384000 bytes of device memory (out of memory). Driver repor
 If you do then you ran out of memory when attempting to get our test prediction values from Theano. I wanted you to see this error in case it happens in the future. To fix this follow the next section. If you didn't get this error, great! But you should still follow the next section because this error will probably happen to you if you move on to more complex neural networks.
 
 #### Memory issues
+
 If you look closely at your error you will see that it occurs in our save\_predictions method. Specifically, it occurs at our call to the theano function test\_predictions\_fn. The X\_test we pass to this theano function is requesting too large of a numpy array to return; it is able to calculate the answers but can't bring it back from the theano function. To fix this all we need to do is split our X\_train into several parts and make a several calls to our theano function test\_predictions\_fn to get answers in smaller chunks.
 
 ```python
@@ -451,6 +469,7 @@ def save_predictions(test_predictions_fn, X_test):
 ```
 
 #### Submitting to Kaggle
+
 Now that we fixed the memory issue we can finally get our predictions! Go ahead and run the following command:
 
 ```python
