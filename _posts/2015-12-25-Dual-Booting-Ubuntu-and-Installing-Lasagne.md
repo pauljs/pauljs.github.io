@@ -16,7 +16,9 @@ Table of Contents:
 - [Install NVIDIA's cuDNN](#cuDNN)
 
 <a name='intro'></a>
+
 ## Installing Ubuntu and Lasagne
+
 The purpose of this post is to provide a step-by-step instruction on:
 
 1. Dual-booting Ubunutu on a Windows machine  
@@ -35,7 +37,9 @@ Before starting the step-by-step instructions, I want to make sure you understan
 
 Now let's start the setup!
 <a name='ubuntu'></a>
+
 ### Step 1: Dual-boot Ubuntu
+
 Requirements: Windows 8 / 8.1 / 10 and at least 2 GB USB Flash Drive (the USB will have to be reformatted to contain the Ubuntu download so if you have anything important on your USB be sure to copy it somewhere safe for it will be removed when installing Ubuntu on it)
 
 For dual-booting Ubuntu, I followed [this Youtube video](https://www.youtube.com/watch?v=hOz66FC0pWU) though the video skips out on some steps with Windows BIOS and accessing both Ubuntu and Windows at the end. I placed these skipped steps in my step-by-step instructions below.
@@ -78,7 +82,9 @@ sudo update-grub
 then press enter. You may have to enter your password when prompted. This will let GRUB recognize your Windows (loader). Now when you restart your computer you will have the option to select Windows (loader) in GNU GRUB. You can move down to this and press enter to start Windows, or press enter on Ubuntu to start Ubuntu. Also keep in mind GNU GRUB has a timer. If you move or select anything in the time limit it will just default to the first option. Congratulations on dual-booting Ubuntu!  
 
 <a name='dependencies'></a>
+
 ### Step 2: Installing Lasagne Depedencies on Ubuntu
+
 For installing Lasagne dependencies I followed the [Lasagne installation guide](http://lasagne.readthedocs.org/en/latest/user/installation.html) though specifics into how to install the dependencies were left out and can be seen below. Before starting search your computer for "Software Updater" and install any updates it finds. Without this you may not have some dependecies available for you to install (this happened to me when trying to install pip)
 
 **Python + pip**
@@ -118,6 +124,7 @@ pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/v0.1/requiremen
 You installed all of the dependencies!
 
 <a name='lasagne'></a>
+
 ### Step 3: Installing Lasagne
 
 - To install the bleeding-edge version (I did this for version 0.2.dev1): 
@@ -126,7 +133,9 @@ pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
 ```
 
 <a name='gpu'></a>
+
 ### Step 4: Optionally Enable GPU support (Highly Recommended!)
+
 Your computer requires a GPU in order to use this option
 
 - To enable GPU support, you need NVIDIA's CUDA Toolkit. Go to its [website](https://developer.nvidia.com/cuda-downloads) and narrow down your operating system version until you get to installer type. Click which instaler type you wish to use (I used deb "(local)")
@@ -165,7 +174,9 @@ THEANO_FLAGS=device=gpu python -c "import theano; print theano.sandbox.cuda.devi
   - If there was a problem another restart may be required
 
 <a name='cuDNN'></a>
+
 ### Step 5: Optionally Install NVIDIA's library cuDNN to speed up Convolutional Neural Networks
+
 A GPU with compute capability of at least 3.0 is needed for this option
 
 - To install cuDNN, go to its [website](https://developer.nvidia.com/cudnn) and click the Register button. In order to download cuDNN you must register and be accepted into NVIDIA's Accelerated Computing Developer Program. This is fairly simple to get into you just have to mention why you wish to use the NVIDIA library in the short application. You should receive notification of your acceptance within a day (it took 1 day for me).
@@ -179,5 +190,7 @@ python -c "import theano; print theano.sandbox.cuda.dnn.dnn_available() or thean
 ```
 
 <a name='first-post'></a>
+
 ## Start Following the First Post!
+
 Start following along with [The Power of Neural Networks and A Kickstart through Kaggle](http://pauljs.github.io/How-do-I-Neural-Network-A-Kaggle-Explanation/#kaggle)
