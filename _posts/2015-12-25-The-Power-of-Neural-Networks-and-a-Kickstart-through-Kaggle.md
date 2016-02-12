@@ -22,7 +22,7 @@ Table of Contents:
 
 <a name='intro'></a>
 ## The Power of Neural Networks and a Kickstart through Kaggle: An Introduction
-
+====================
 Welcome to the first post in a series of blogs with a focus on making current research in deep learning and neural networks more tangeable! While this post will not go into details on what deep learning and neural networks are (this is saved for the next post), in this section, we are going to use the introduction machine learning problem on labeling pictures of numbers using the MNIST dataset to show the power of neural networks. We are then going to enter a competition and produce a submission with < 1% error! For those who are unaware, MNIST stands for Modified (or Mixed) National Institute of Standards and Technology and is a dataset of 70,000 black and white images (28 pixels by 28 pixels) of the numbers 0 through 9. A few examples of these images can be seen below. MNIST was created from two separate datasets whose purpose was to create a standard for how numbers were written. Half of the dataset is from American high school students' written digits and the other half is from American Census Bureau employees' written digits.
 
 <div style="text-align:center;"><img src="/assets/The-Power-of-Neural-Networks-and-a-Kickstart-through-Kaggle/mnist_samples.png"></div>
