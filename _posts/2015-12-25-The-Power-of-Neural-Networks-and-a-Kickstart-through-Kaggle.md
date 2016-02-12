@@ -112,6 +112,7 @@ In order to make this file work with our Kaggle competition, we need to:
 4. Create a save\_neural\_network function to optionally save our neural network at the end of training
 5. Create a load\_neural\_network function to optionally load a previously saved neural network to perform testing on
 
+<a name='load-dataset'></a>
 ### 1. Load Kaggle Dataset
 Looking at our main function below we can see the first function is a call to load our dataset
 
