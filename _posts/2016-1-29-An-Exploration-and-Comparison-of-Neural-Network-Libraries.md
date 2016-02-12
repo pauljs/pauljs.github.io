@@ -60,7 +60,7 @@ To look at the Lasagne install go the [Lasagne install blog post](http://pauljs.
 
 <a name='updates'></a>
 
-##Libraries' Updates for Current and New Research
+## Libraries' Updates for Current and New Research
 
 <a name='conclusion'></a>
 
