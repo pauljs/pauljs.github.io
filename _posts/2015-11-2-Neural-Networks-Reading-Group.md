@@ -13,8 +13,8 @@ the explanations will help translate any complexities. Happy learning!
      techniques including root-mean-square error (RMSE), feed-forward neural networks, etc. Key terminology in this 
      paper is further explained [here](), with references to locations of the terms in the paper.
 2. Sparse coding
-  1. [Emergence of simple-cell receptive field properties by learning a sparse code for natural images](http://redwood.berkeley.edu/bruno/papers/nature-paper.pdf)  
-  2. [Efficient Sparse coding algorithms](http://ai.stanford.edu/~hllee/nips06-sparsecoding.pdf)  
+   1. [Emergence of simple-cell receptive field properties by learning a sparse code for natural images](http://redwood.berkeley.edu/bruno/papers/nature-paper.pdf)  
+   2. [Efficient Sparse coding algorithms](http://ai.stanford.edu/~hllee/nips06-sparsecoding.pdf)  
 3. [Extracting and Composing Robust Features with Denoising Autoencoders](http://www.cs.toronto.edu/~larocheh/publications/icml-2008-denoising-autoencoders.pdf)  
 4. [Contractive Auto-Encoders: Explicit Invariance During Feature Extraction](http://www.icml-2011.org/papers/455_icmlpaper.pdf)  
 5. [Learning Deep Architectures for AI: Chapter 5 Energy-Based Models and Boltzmann Machines](http://www.iro.umontreal.ca/~bengioy/papers/ftml.pdf)  
