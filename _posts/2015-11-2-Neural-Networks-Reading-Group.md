@@ -8,7 +8,7 @@ Neural Networks from my start to the present. It will be updated as new material
 the explanations will help translate any complexities. Happy learning!
 
 1. [Rotation-invariant convolutional neural networks for galaxy morphology prediction](http://arxiv.org/pdf/1503.07077.pdf)
-  1. This is a great introduction into applying neural networks. This paper uses deep learning to classify galaxies 
+  * This is a great introduction into applying neural networks. This paper uses deep learning to classify galaxies 
      from images provided by the [Galaxy Zoo project](http://www.galaxyzoo.org/). It clearly introduces deep learning 
      techniques including root-mean-square error (RMSE), feed-forward neural networks, etc. Key terminology in this 
      paper is further explained [here](), with references to locations of the terms in the paper.
