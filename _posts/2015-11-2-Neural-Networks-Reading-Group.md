@@ -14,30 +14,18 @@ the explanations will help translate any complexities. Happy learning!
      paper is further explained [here](), with references to locations of the terms in the paper.
 2. Sparse coding
   1. [Emergence of simple-cell receptive field properties by learning a sparse code for natural images](http://redwood.berkeley.edu/bruno/papers/nature-paper.pdf)  
-    1.
   2. [Efficient Sparse coding algorithms](http://ai.stanford.edu/~hllee/nips06-sparsecoding.pdf)  
-    1.
 3. [Extracting and Composing Robust Features with Denoising Autoencoders](http://www.cs.toronto.edu/~larocheh/publications/icml-2008-denoising-autoencoders.pdf)  
-  1.
 4. [Contractive Auto-Encoders: Explicit Invariance During Feature Extraction](http://www.icml-2011.org/papers/455_icmlpaper.pdf)  
-  1.
 5. [Learning Deep Architectures for AI: Chapter 5 Energy-Based Models and Boltzmann Machines](http://www.iro.umontreal.ca/~bengioy/papers/ftml.pdf)  
-  1.
 6. [Convolutional Deep Belief Networks for Scalable Unsupervised Learning of Hierarchical Representations (2009)](https://www.cs.princeton.edu/~rajeshr/papers/icml09-ConvolutionalDeepBeliefNetworks.pdf)  
-  1.
 7. [Yoshua Bengio's online book Deep Learning: Chapter 6 Feedforward Deep Networks and Chapter 9 Convolutional Networks](http://goodfeli.github.io/dlbook/)  
-  1.
 8. Recursive Neural Networks
   1. [The Unreasonable Effectiveness of Recurrent Neural Networks](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)  
-    1.
   2. [Recurrent Neural Networks Tutorial, Part 1 – Introduction to RNNs](http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/)  
-    1.
   3. [Understanding LSTM Networks](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)  
-    1.
   4. [University of Toronto's slides on Recurrent Neural Networks](http://www.cs.toronto.edu/~asamir/cifar/Ilya_slides.pdf)  
-    1.
 9. [Visualizing and Understanding Recurrent Networks](http://arxiv.org/pdf/1506.02078v1.pdf)  
-  1.
 10. [Deep Fragment Embeddings for Bidirectional Image Sentence Mapping](http://arxiv.org/pdf/1406.5679v1.pdf)
 11. [TensorFlow](http://tensorflow.org/)  
   1. [Google's 1st blog post](https://googleblog.blogspot.com/2015/11/tensorflow-smarter-machine-learning-for.html)
